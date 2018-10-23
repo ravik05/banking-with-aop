@@ -1,0 +1,351 @@
+//aspect oriented programming for a better security 
+
+/*
+
+admin id : admin;
+admin pass : password;
+
+username : Ravi , prashant , deepak;
+10 digit password : 8888;
+
+corporate security key : 1111;
+
+
+*/
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+
+public class bankingstable5
+{
+	static int ctrforwrongpassword=0;
+	static int ctrforwronglogin=0;
+
+	static int balanceravi=1000;
+	static int balanceprashant=800;
+	static int balancedeepak=200;
+	static int balancetemp=0;
+	static String name; 
+
+    public static void main(String args[]) throws Exception
+    {
+    	homepage();
+    	exitmessage();   	
+    }
+
+	public static void homepage() 
+	{
+    	Scanner in = new Scanner(System.in);
+
+    	//clrscr();
+    	System.out.println("\n\n");
+    	System.out.println("_________________________________________");
+    	System.out.println("||                                     ||");
+    	System.out.println("||   	    Hello Welcome To           ||");
+    	System.out.println("||             ABC BANK                ||");
+    	System.out.println("||_____________________________________||");
+    	System.out.println("");
+    	System.out.println("ENTER THE SERIAL NUMBER TO OPEN THAT OPTION");
+    	System.out.println("");
+        System.out.println("1. Go to login Page");        
+        System.out.println("2. Find the branches in Delhi");
+        System.out.println("3. Contact us here");
+        System.out.println("4. How this Bank is Different from others?");
+        System.out.println("5. Go Admin login Page");
+        System.out.println("6. EXIT ");
+    
+        try 
+ 	   {
+ 		 int option_number;
+ 		 System.out.println("Enter your coice: ");
+ 		 option_number = in.nextInt();
+ 
+ 		 //System.out.println("your option is :"+option_number);
+ 		 clrscr();
+
+ 			switch(option_number)
+ 			{
+ 			 default: System.out.println("THIS IS NOT AN OPTION"); homepage(); break;
+ 		 
+ 			 case 1: usertype(); break;
+ 		  	 case 2: bankbranch(); break;
+ 			 case 3: bankcontact(); break;
+ 			 case 4: bankinfo(); break;
+ 			 case 5: adminlogin(); break;
+  			 case 6: break;
+ 			} 
+ 	    }
+ 	     catch(InputMismatchException e1 )
+ 	     {   
+ 	    	clrscr(); 
+ 	    	System.out.println("!!!Please insert a number !!! [Exception from homepagefunc] "); 
+ 	    	homepage(); 
+ 	     } //catch(FileNotFoundException x){System.out.println("hello there is some error");}
+
+ 	}
+ 	
+ 	 // SOME SMALL FUNCTIONS*******************************
+ 	public static void clrscr()       { for (int i = 0; i < 50; ++i) System.out.println();  }
+ 	public static void exitmessage()  { System.out.println(); System.out.println("THANK YOU FOR USING OUR SERVICE. PLEASE VISIT US AGAIN"); }
+ 	
+ 	public static void adminlogin() 
+ 	{  
+ 		System.out.println("You Have To Login With Admin pass And ID");
+ 		String adminid = "admin" ;
+ 		String adminpass= "password";
+ 		String tempid;
+ 		String temppass;
+
+ 		Scanner sc = new Scanner(System.in);
+ 		System.out.println("Enter  your Admin ID :"); 
+ 		tempid = sc.nextLine();
+ 		System.out.println("Enter your Admin Password :");
+ 		temppass = sc.nextLine();
+
+ 		//System.out.println("your id = "+tempid);
+ 		//System.out.println("your pass = "+temppass);
+
+ 		//System.out.println("Admin id = "+adminid);
+ 		//System.out.println("Admin pass = "+adminpass);
+ 		clrscr();
+ 		
+ 		if(tempid.equals(adminid))
+ 			{//System.out.println("id is verified");
+ 				if(temppass.equals(adminpass))
+ 					 {  
+ 					 	System.out.println("you are a authenticated person"); adminpage(); } 		
+ 				}
+ 		else{System.out.println("ACCESS DENIED");}
+ 	}
+
+
+ 	public static void adminpage()    { 
+ 										System.out.println("WELCOME TO ADMINISTRATION PAGE");
+ 										System.out.println("");
+ 										System.out.println("1. show all user");
+ 										System.out.println("2. Create a new Account");
+ 										System.out.println("3. Block an Account");
+ 										System.out.println("4. Unlock a Blocked Account");
+ 									   }
+ 	public static void bankinfo()     { System.out.println("This is the best bank presently");  }
+ 	public static void bankbranch()   {System.out.println("Branches Info page");}
+ 	public static void bankcontact()  { System.out.println("Contact Details appear here");}
+ 	
+ 	public static void logout()       
+ 	{
+ 		String user1 = "Ravi";
+ 		String user2 = "prashant";
+ 		String user3 = "deepak";
+
+ 		if      (name.equals(user1))  {balanceravi = balancetemp; }
+	 	else if (name.equals(user2))  {balanceprashant = balancetemp; }
+	 	else if (name.equals(user3))  {balancedeepak = balancetemp; }
+
+ 		System.out.println("You have Successfully Logout");
+ 	}
+ 	/*
+ 	public static void bankinfo() throws Exception
+ 	{
+ 		File file = new File("text.txt");
+    	Scanner scan = new Scanner (file);
+    
+    	while (scan.hasNextLine())
+    	System.out.println(scan.nextLine());
+ 	}
+	*/
+
+ 	public static void usertype()
+ 	{ 
+ 		int no;
+
+ 		System.out.println("Select your Account Type : \n");
+		//System.out.println("1. ..ADMIN..");
+        System.out.println("1. PERSONAL Account..");
+        System.out.println("2. CORPORATE Account..");
+        System.out.println("3. Go to Homepage ");  		
+	
+		Scanner sc = new Scanner(System.in);
+		no = sc.nextInt();
+
+		switch(no)
+		{	
+			default : System.out.println("Not a Valid option"); usertype(); break;
+
+			case 1:  clrscr(); 
+					 System.out.println("PERSONAL Account..");
+					 login(); 
+					 break;
+
+			case 2:  corporatelogin();
+					 login();			
+					 break;
+						
+			
+			case 3:  clrscr();
+					 System.out.println("Opening Homepage......"); 
+					 homepage();														
+					 break;
+		}					
+	}
+
+	public static void corporatelogin(){ System.out.println("..CORPORATE Account");}
+
+	public static void login()
+	{
+ 		int acno1=0;
+ 		int pass1=0;
+ 		int verified;
+ 		balancetemp=0;
+
+ 		String tempuser="ok";
+
+  		Scanner in = new Scanner(System.in);
+
+ 	 try{
+
+ 		System.out.println("Enter Your Username ");
+ 		tempuser = in.nextLine();
+ 		//acno1 = in.nextInt();
+ 		//System.out.println("your option is :"+acno1);
+ 		System.out.println("Enter Your 10 digit Password");
+ 		pass1 = in.nextInt();
+ 		//System.out.println("your option is :"+pass1);
+ 	   }
+ 	   catch(InputMismatchException e2){System.out.println("Please Enter name for id and Numbers for password [Exception from login funcn] "); }
+ 		
+ 		verified = verify(tempuser,pass1);
+ 		//System.out.println("value of temp :"+verified);
+ 		if (verified==2)
+ 			{	
+ 				name=tempuser;
+ 				clrscr();
+ 				System.out.println("Hi, "+tempuser+" welcome to ABC BANK the most trustable bank in the country\n ");
+ 				
+ 				accountmenu();
+ 			}
+ 		else if (verified==0){ ctrforwronglogin+=1;
+							   System.out.println("your entered details are wrong");
+							   System.out.println("attempt"+ctrforwronglogin);		                        
+							   usertype();
+							  }
+ 		else if (verified==1){  ctrforwrongpassword+=1;
+ 								System.out.println("you entered a wrong password");     
+							  	System.out.println("ctr for worng password "+ctrforwrongpassword);								 
+								usertype();
+							}
+ 	
+ 	}
+
+   
+
+    public static int verify(String tempuser , int pass)
+	{
+	 	int temp=0;
+	 	String user1 = "Ravi";
+ 		String user2 = "prashant";
+ 		String user3 = "deepak";
+
+	 	if (tempuser.equals(user1)){balancetemp=balanceravi; temp++;}
+	 	else if (tempuser.equals(user2)){balancetemp=balanceprashant; temp++;}
+	 	else if (tempuser.equals(user3)){balancetemp=balancedeepak; temp++;}
+	 	
+
+	 	if ((temp==1)&&(pass==8888)){temp++;}
+ 	 
+ 	   return temp;  
+ 	}
+
+    public static void accountmenu()
+    {   
+    	Scanner in = new Scanner(System.in);
+    	
+   		/*if ((name.equals(user1)){balancetemp=}
+    	if ((name.equals(user2)){balancetemp=}
+    	if ((name.equals(user3))){balancetemp=}
+   		*/
+		
+
+		System.out.println("\n Username: "+name);
+
+		System.out.println("\nENTER THE SERIAL NUMBER TO OPEN THAT OPTION");
+    	System.out.println("");
+        System.out.println("1. Check your bank balance");
+        System.out.println("2. Add Balance");
+        System.out.println("3. Withdraw money");
+        System.out.println("4. Transfer to other person account");
+        System.out.println("5. LOGOUT "); 
+        System.out.println("6. LOGOUT & EXIT ");
+        System.out.println("7. LOGOUT & Go TO Homepage");  
+
+        int option_number;
+ 		System.out.println("Enter your coice: ");
+ 		option_number = in.nextInt();
+
+        switch(option_number)
+ 		{
+ 		 default: clrscr(); System.out.println("THIS IS NOT AN OPTION"); accountmenu(); break;
+ 		 
+ 		 case 1: clrscr(); System.out.println("Your Account Balance is "+balancetemp+" rupees"); accountmenu(); break;
+ 		 case 2: clrscr(); addbalance(); accountmenu(); break;
+ 		 case 3: clrscr(); minusbalance(); accountmenu(); break;
+ 		 case 4: clrscr(); System.out.println("Enter other person bank username and your password(security purpose) "); accountmenu(); break;
+ 		 case 5: clrscr(); logout(); usertype(); break;
+ 		 case 6: clrscr(); logout(); break;
+ 		 case 7: clrscr(); logout(); homepage(); break;  
+ 		}       
+    }
+
+    
+    public static void addbalance()
+    {  int temp;
+    	
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the amount you want to add(in numbers) :");
+    	temp = sc.nextInt();
+    	balancetemp+=temp;
+    	System.out.println("Your amount is added Successfully");   	
+    }
+
+    public static void minusbalance()
+    {
+    	int temp;
+    	
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the amount you want to withdraw(in numbers) :");
+    	temp = sc.nextInt();
+    	balancetemp-=temp;
+    	System.out.println("Your amount is withdrawn Successfully");   	
+    }
+ 
+static aspect accountchoice
+  {
+	 pointcut security()        //declare pointcut security
+	 : call(* bankingstable5.corporatelogin(..));    //join point(the method of your code which implemented by pointcut)
+	
+	  before() : security()     // here we use before as a advice
+		{ 
+				Scanner sc = new Scanner(System.in);
+			
+
+					System.out.println("Enter Corporate Security Key : ");
+					int key = sc.nextInt();
+					if(key == 1111)
+						{   clrscr(); 
+							System.out.println("We Offer the Best security for Corporate User");							
+							
+						} 
+
+					else {  System.out.println("!!!! Your Corporate security key is not valid !!!!");
+							System.out.println("You are redirected to Homepage......"); 
+							bankingstable5.homepage();
+							exitmessage();
+							System.exit(0);							
+							}				
+		}				
+	}  
+}	
+
+
+
+
