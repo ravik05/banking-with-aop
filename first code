@@ -26,11 +26,13 @@ public class bankingstable5
 	static int balanceprashant=800;
 	static int balancedeepak=200;
 	static int balancetemp=0;
+	static boolean block=false;
 	static String name; 
 
     public static void main(String args[]) throws Exception
     {
     	homepage();
+    	
     	exitmessage();   	
     }
 
@@ -58,10 +60,9 @@ public class bankingstable5
         try 
  	   {
  		 int option_number;
- 		 System.out.println("Enter your coice: ");
- 		 option_number = in.nextInt();
+ 		 
+ 		 option_number = enterchoice();
  
- 		 //System.out.println("your option is :"+option_number);
  		 clrscr();
 
  			switch(option_number)
@@ -69,10 +70,10 @@ public class bankingstable5
  			 default: System.out.println("THIS IS NOT AN OPTION"); homepage(); break;
  		 
  			 case 1: usertype(); break;
- 		  	 case 2: bankbranch(); break;
- 			 case 3: bankcontact(); break;
- 			 case 4: bankinfo(); break;
- 			 case 5: adminlogin(); break;
+ 		  	 case 2: bankbranch(); homepage(); break;
+ 			 case 3: bankcontact(); homepage(); break;
+ 			 case 4: bankinfo(); homepage(); break;
+ 			 case 5: adminlogin(); homepage(); break;
   			 case 6: break;
  			} 
  	    }
@@ -85,7 +86,7 @@ public class bankingstable5
 
  	}
  	
- 	 // SOME SMALL FUNCTIONS*******************************
+
  	public static void clrscr()       { for (int i = 0; i < 50; ++i) System.out.println();  }
  	public static void exitmessage()  { System.out.println(); System.out.println("THANK YOU FOR USING OUR SERVICE. PLEASE VISIT US AGAIN"); }
  	
@@ -103,12 +104,7 @@ public class bankingstable5
  		System.out.println("Enter your Admin Password :");
  		temppass = sc.nextLine();
 
- 		//System.out.println("your id = "+tempid);
- 		//System.out.println("your pass = "+temppass);
-
- 		//System.out.println("Admin id = "+adminid);
- 		//System.out.println("Admin pass = "+adminpass);
- 		clrscr();
+  		clrscr();
  		
  		if(tempid.equals(adminid))
  			{//System.out.println("id is verified");
@@ -119,19 +115,51 @@ public class bankingstable5
  		else{System.out.println("ACCESS DENIED");}
  	}
 
-
- 	public static void adminpage()    { 
- 										System.out.println("WELCOME TO ADMINISTRATION PAGE");
- 										System.out.println("");
- 										System.out.println("1. show all user");
- 										System.out.println("2. Create a new Account");
- 										System.out.println("3. Block an Account");
- 										System.out.println("4. Unlock a Blocked Account");
- 									   }
  	public static void bankinfo()     { System.out.println("This is the best bank presently");  }
  	public static void bankbranch()   {System.out.println("Branches Info page");}
  	public static void bankcontact()  { System.out.println("Contact Details appear here");}
- 	
+ 	public static int enterchoice()  { 
+ 										int temp;
+ 										Scanner sc = new Scanner(System.in);
+ 		 								System.out.println("Enter your coice: ");
+ 										 temp = sc.nextInt(); 
+ 										 clrscr();
+ 										 return temp;
+ 									 }
+
+ 	public static void adminpage()    { 
+ 										
+ 										System.out.println("WELCOME TO ADMINISTRATION PAGE");
+ 										System.out.println("");
+ 										System.out.println("1. Create a new Account");
+ 										System.out.println("2. Block an Account");
+ 										System.out.println("3. Unlock Blocked Account");
+ 										System.out.println("4. Show the total balance of every user");
+ 										System.out.println("5. Admin Logout");
+ 										int n = enterchoice();
+
+ 										switch(n)
+ 										{
+ 											default : System.out.println("This is not a valid option"); break;
+ 											case 1 : adminpage(); break;
+ 											case 2 : adminpage(); break;
+ 											case 3 : ctrforwronglogin=0; ctrforwrongpassword=0; block=false;
+ 													 System.out.println("account is unblocked now"); 
+ 													 adminpage(); break;
+ 											case 4 : int total = balanceravi+balanceprashant+balancedeepak; 
+ 														System.out.println("Ravi : "+balanceravi);
+ 														System.out.println("Prashant : "+balanceprashant);
+ 														System.out.println("Deepak : "+balancedeepak);
+ 														System.out.println("Total money bank have now:" +total); 
+ 														adminpage(); break;
+ 											case 5 : homepage(); break;
+
+
+
+ 										}
+ 									   
+ 									   }
+
  	public static void logout()       
  	{
  		String user1 = "Ravi";
@@ -141,7 +169,7 @@ public class bankingstable5
  		if      (name.equals(user1))  {balanceravi = balancetemp; }
 	 	else if (name.equals(user2))  {balanceprashant = balancetemp; }
 	 	else if (name.equals(user3))  {balancedeepak = balancetemp; }
-
+	 	balancetemp=0;
  		System.out.println("You have Successfully Logout");
  	}
  	/*
@@ -155,43 +183,43 @@ public class bankingstable5
  	}
 	*/
 
- 	public static void usertype()
+ 	public static int usertype()
  	{ 
  		int no;
 
+ 		if(block){System.out.println("You are Blocked, Contact Admin"); homepage();  return 0;}
  		System.out.println("Select your Account Type : \n");
-		//System.out.println("1. ..ADMIN..");
+		
         System.out.println("1. PERSONAL Account..");
         System.out.println("2. CORPORATE Account..");
         System.out.println("3. Go to Homepage ");  		
-	
-		Scanner sc = new Scanner(System.in);
-		no = sc.nextInt();
+			
+		no = enterchoice();
 
 		switch(no)
 		{	
 			default : System.out.println("Not a Valid option"); usertype(); break;
 
 			case 1:  clrscr(); 
-					 System.out.println("PERSONAL Account..");
-					 login(); 
+					 System.out.println("PERSONAL Account..");		  
+					 login();
 					 break;
 
 			case 2:  corporatelogin();
-					 login();			
+					 login();
 					 break;
-						
-			
+							
 			case 3:  clrscr();
 					 System.out.println("Opening Homepage......"); 
 					 homepage();														
 					 break;
 		}					
+	return 0;
 	}
 
 	public static void corporatelogin(){ System.out.println("..CORPORATE Account");}
 
-	public static void login()
+	public static int login()
 	{
  		int acno1=0;
  		int pass1=0;
@@ -214,9 +242,31 @@ public class bankingstable5
  	   }
  	   catch(InputMismatchException e2){System.out.println("Please Enter name for id and Numbers for password [Exception from login funcn] "); }
  		
- 		verified = verify(tempuser,pass1);
+ 		verify(tempuser,pass1);
  		//System.out.println("value of temp :"+verified);
- 		if (verified==2)
+ 		
+ 	return 0;
+ 	}
+
+   
+
+    public static void verify(String tempuser , int pass)
+	{
+	 	int temp=0;
+	 	String user1 = "Ravi";
+ 		String user2 = "prashant";
+ 		String user3 = "deepak";
+
+	 	if (tempuser.equals(user1)){balancetemp=balanceravi; temp++;}
+	 	else if (tempuser.equals(user2)){balancetemp=balanceprashant; temp++;}
+	 	else if (tempuser.equals(user3)){balancetemp=balancedeepak; temp++;}
+	 	
+
+	 	if ((temp==1)&&(pass==8888)){temp++;}
+ 	 
+ 	   int verified=temp;
+
+ 	   	if (verified==2)
  			{	
  				name=tempuser;
  				clrscr();
@@ -234,26 +284,8 @@ public class bankingstable5
 							  	System.out.println("ctr for worng password "+ctrforwrongpassword);								 
 								usertype();
 							}
- 	
- 	}
 
-   
-
-    public static int verify(String tempuser , int pass)
-	{
-	 	int temp=0;
-	 	String user1 = "Ravi";
- 		String user2 = "prashant";
- 		String user3 = "deepak";
-
-	 	if (tempuser.equals(user1)){balancetemp=balanceravi; temp++;}
-	 	else if (tempuser.equals(user2)){balancetemp=balanceprashant; temp++;}
-	 	else if (tempuser.equals(user3)){balancetemp=balancedeepak; temp++;}
-	 	
-
-	 	if ((temp==1)&&(pass==8888)){temp++;}
- 	 
- 	   return temp;  
+ 	   
  	}
 
     public static void accountmenu()
@@ -267,16 +299,17 @@ public class bankingstable5
 		
 
 		System.out.println("\n Username: "+name);
+		System.out.println("Your Account Balance is "+balancetemp+" rupees \n");
 
 		System.out.println("\nENTER THE SERIAL NUMBER TO OPEN THAT OPTION");
     	System.out.println("");
-        System.out.println("1. Check your bank balance");
-        System.out.println("2. Add Balance");
-        System.out.println("3. Withdraw money");
-        System.out.println("4. Transfer to other person account");
-        System.out.println("5. LOGOUT "); 
-        System.out.println("6. LOGOUT & EXIT ");
-        System.out.println("7. LOGOUT & Go TO Homepage");  
+        
+        System.out.println("1. Add Balance");
+        System.out.println("2. Withdraw money");
+        System.out.println("3. Transfer to other person account");
+        System.out.println("4. LOGIN to another account "); 
+        System.out.println("5. LOGOUT & Go To Homepage");
+        System.out.println("6. LOGOUT & Exit");  
 
         int option_number;
  		System.out.println("Enter your coice: ");
@@ -286,13 +319,13 @@ public class bankingstable5
  		{
  		 default: clrscr(); System.out.println("THIS IS NOT AN OPTION"); accountmenu(); break;
  		 
- 		 case 1: clrscr(); System.out.println("Your Account Balance is "+balancetemp+" rupees"); accountmenu(); break;
- 		 case 2: clrscr(); addbalance(); accountmenu(); break;
- 		 case 3: clrscr(); minusbalance(); accountmenu(); break;
- 		 case 4: clrscr(); System.out.println("Enter other person bank username and your password(security purpose) "); accountmenu(); break;
- 		 case 5: clrscr(); logout(); usertype(); break;
- 		 case 6: clrscr(); logout(); break;
- 		 case 7: clrscr(); logout(); homepage(); break;  
+ 		 
+ 		 case 1: clrscr(); addbalance(); accountmenu(); break;
+ 		 case 2: clrscr(); minusbalance(); accountmenu(); break;
+ 		 case 3: clrscr(); System.out.println("Enter other person bank username and your password(security purpose) "); accountmenu(); break;
+ 		 case 4: clrscr(); logout(); usertype(); break;
+ 		 case 5: clrscr(); logout(); homepage(); break;
+ 		 case 6: clrscr(); logout(); break;  
  		}       
     }
 
@@ -320,14 +353,12 @@ public class bankingstable5
  
 static aspect accountchoice
   {
-	 pointcut security()        //declare pointcut security
-	 : call(* bankingstable5.corporatelogin(..));    //join point(the method of your code which implemented by pointcut)
-	
+	 pointcut security()     : call(* bankingstable5.corporatelogin(..));   
+ //declare pointcut security   	join point(the method of your code which implemented by pointcut)
 	  before() : security()     // here we use before as a advice
 		{ 
 				Scanner sc = new Scanner(System.in);
 			
-
 					System.out.println("Enter Corporate Security Key : ");
 					int key = sc.nextInt();
 					if(key == 1111)
@@ -342,7 +373,36 @@ static aspect accountchoice
 							exitmessage();
 							System.exit(0);							
 							}				
-		}				
+		};				
+	
+		pointcut feedback() : call(* bankingstable5.exitmessage(..));
+		
+		before() : feedback()
+		{
+			System.out.println("how many Star would you like to give for the service. (on the scale of 5)");
+			
+			int n = bankingstable5.enterchoice();
+
+			System.out.println("THANK YOU for giving us "+n+" Star");
+
+		}
+
+	pointcut wrongpassword() : call(* bankingstable5.usertype(..));
+	
+
+	before() : wrongpassword()
+		{
+			if( (bankingstable5.ctrforwrongpassword>4)|| (bankingstable5.ctrforwronglogin>4) )
+			  {  
+			  	bankingstable5.block=true;
+			  	System.out.println("you crossed the attempt limit");
+			  	System.out.println("contact the admin");
+			  
+			  }
+
+
+		}
+
 	}  
 }	
 
