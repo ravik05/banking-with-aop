@@ -10,6 +10,9 @@ username : Ravi , prashant , deepak;
 
 corporate security key : 1111;
 
+1st user Ravi
+2nd user prashant
+3rd user deepak
 
 */
 import java.util.*;
@@ -17,20 +20,32 @@ import java.lang.*;
 import java.io.*;
 
 
-public class bankingstable5
+public class bankingstable6
 {
 	static int ctrforwrongpassword=0;
 	static int ctrforwronglogin=0;
 
-	static int balanceravi=1000;
-	static int balanceprashant=800;
-	static int balancedeepak=200;
+	static String usernamearray[] = new String[11]; 
+	static int userbalancearray[] = new int[11];
+		
 	static int balancetemp=0;
+	
+	static int totaluser=0;
 	static boolean block=false;
 	static String name; 
 
     public static void main(String args[]) throws Exception
-    {
+    {		
+    		totaluser=3;
+   	  
+    	    usernamearray[1] = "Ravi";			  //user 1
+ 			usernamearray[2] = "prashant";		  //user 2
+ 			usernamearray[3] = "deepak";		  //user 3
+
+    	    userbalancearray[1] = 1200;
+			userbalancearray[2] = 800;
+			userbalancearray[3] = 600;
+	    	
     	homepage();
     	
     	exitmessage();   	
@@ -106,13 +121,12 @@ public class bankingstable5
 
   		clrscr();
  		
- 		if(tempid.equals(adminid))
- 			{//System.out.println("id is verified");
- 				if(temppass.equals(adminpass))
- 					 {  
- 					 	System.out.println("you are a authenticated person"); adminpage(); } 		
- 				}
- 		else{System.out.println("ACCESS DENIED");}
+ 		if((tempid.equals(adminid))&&(temppass.equals(adminpass)))
+ 			{ 					   
+ 				System.out.println("you are an authenticated person"); adminpage(); 		
+ 			}
+
+ 		else {System.out.println("ACCESS DENIED");}
  	}
 
  	public static void bankinfo()     { System.out.println("This is the best bank presently");  }
@@ -140,35 +154,61 @@ public class bankingstable5
 
  										switch(n)
  										{
- 											default : System.out.println("This is not a valid option"); break;
- 											case 1 : adminpage(); break;
+ 											default : System.out.println("This is not a valid option"); adminpage(); break;
+ 											case 1 : Createanewaccount(); adminpage(); break;
  											case 2 : adminpage(); break;
  											case 3 : ctrforwronglogin=0; ctrforwrongpassword=0; block=false;
- 													 System.out.println("account is unblocked now"); 
+ 													 System.out.println("Account is unblocked now"); 
  													 adminpage(); break;
- 											case 4 : int total = balanceravi+balanceprashant+balancedeepak; 
- 														System.out.println("Ravi : "+balanceravi);
- 														System.out.println("Prashant : "+balanceprashant);
- 														System.out.println("Deepak : "+balancedeepak);
- 														System.out.println("Total money bank have now:" +total); 
+ 											case 4 : int total = userbalancearray[1]+userbalancearray[2]+userbalancearray[3];
+ 														
+ 														for(int i=1;i<=totaluser;i++)
+ 														System.out.println(usernamearray[i]+" : "+userbalancearray[i]);
+ 														
+
+ 														System.out.println("Total money bank have now : " +total); 
  														adminpage(); break;
- 											case 5 : homepage(); break;
-
-
-
+ 											case 5 : break;
  										}
  									   
  									   }
 
+ 	public static void Createanewaccount() {    String tempname;
+ 												boolean alreadyexist=false;												
+
+ 											Scanner in = new Scanner(System.in);
+ 											System.out.println("Enter a Username for new user");
+ 											tempname=in.nextLine();
+
+ 											for(int i=1;i<=totaluser;i++)
+ 												{
+ 													if(tempname.equals(usernamearray[i])) 
+ 														{ System.out.println("Username already Exist \n try again with different Username ");
+ 														 alreadyexist=true; break;
+ 														} 		
+ 												}
+
+ 											if(alreadyexist==false)
+ 												{	totaluser++; 
+ 													usernamearray[totaluser]=tempname; 
+ 													userbalancearray[totaluser]=0; 
+ 													System.out.println("\n !! New user added !!  \n "); 														
+ 												}
+ 										}
+
  	public static void logout()       
  	{
- 		String user1 = "Ravi";
- 		String user2 = "prashant";
- 		String user3 = "deepak";
-
- 		if      (name.equals(user1))  {balanceravi = balancetemp; }
-	 	else if (name.equals(user2))  {balanceprashant = balancetemp; }
-	 	else if (name.equals(user3))  {balancedeepak = balancetemp; }
+ 		int temp=0;
+	 	
+ 		for(int i=1;i<=11;i++)
+ 		{
+ 			if(name.equals(usernamearray[i])) 
+ 				{ userbalancearray[i]=balancetemp; 
+ 				
+ 					break;
+ 				} 		
+ 		}
+		
 	 	balancetemp=0;
  		System.out.println("You have Successfully Logout");
  	}
@@ -221,7 +261,7 @@ public class bankingstable5
 
 	public static int login()
 	{
- 		int acno1=0;
+ 		//int acno1=0;
  		int pass1=0;
  		int verified;
  		balancetemp=0;
@@ -253,14 +293,15 @@ public class bankingstable5
     public static void verify(String tempuser , int pass)
 	{
 	 	int temp=0;
-	 	String user1 = "Ravi";
- 		String user2 = "prashant";
- 		String user3 = "deepak";
-
-	 	if (tempuser.equals(user1)){balancetemp=balanceravi; temp++;}
-	 	else if (tempuser.equals(user2)){balancetemp=balanceprashant; temp++;}
-	 	else if (tempuser.equals(user3)){balancetemp=balancedeepak; temp++;}
 	 	
+ 		for(int i=1;i<=11;i++)								// verification of username is done here 
+ 		{
+ 			if(tempuser.equals(usernamearray[i])) 
+ 				{ balancetemp=userbalancearray[i]; 
+ 					temp++; 
+ 					break;
+ 				} 		
+ 		}
 
 	 	if ((temp==1)&&(pass==8888)){temp++;}
  	 
@@ -283,20 +324,12 @@ public class bankingstable5
  								System.out.println("you entered a wrong password");     
 							  	System.out.println("ctr for worng password "+ctrforwrongpassword);								 
 								usertype();
-							}
-
- 	   
+							} 	   
  	}
 
     public static void accountmenu()
     {   
     	Scanner in = new Scanner(System.in);
-    	
-   		/*if ((name.equals(user1)){balancetemp=}
-    	if ((name.equals(user2)){balancetemp=}
-    	if ((name.equals(user3))){balancetemp=}
-   		*/
-		
 
 		System.out.println("\n Username: "+name);
 		System.out.println("Your Account Balance is "+balancetemp+" rupees \n");
@@ -353,7 +386,7 @@ public class bankingstable5
  
 static aspect accountchoice
   {
-	 pointcut security()     : call(* bankingstable5.corporatelogin(..));   
+	 pointcut security()     : call(* bankingstable6.corporatelogin(..));   
  //declare pointcut security   	join point(the method of your code which implemented by pointcut)
 	  before() : security()     // here we use before as a advice
 		{ 
@@ -369,43 +402,36 @@ static aspect accountchoice
 
 					else {  System.out.println("!!!! Your Corporate security key is not valid !!!!");
 							System.out.println("You are redirected to Homepage......"); 
-							bankingstable5.homepage();
+							bankingstable6.homepage();
 							exitmessage();
 							System.exit(0);							
 							}				
-		};				
+		}				
 	
-		pointcut feedback() : call(* bankingstable5.exitmessage(..));
+		pointcut feedback() : call(* bankingstable6.exitmessage(..));
 		
 		before() : feedback()
 		{
 			System.out.println("how many Star would you like to give for the service. (on the scale of 5)");
 			
-			int n = bankingstable5.enterchoice();
+			int n = bankingstable6.enterchoice();
 
 			System.out.println("THANK YOU for giving us "+n+" Star");
 
 		}
 
-	pointcut wrongpassword() : call(* bankingstable5.usertype(..));
+	pointcut wrongpassword() : call(* bankingstable6.usertype(..));
 	
 
 	before() : wrongpassword()
 		{
-			if( (bankingstable5.ctrforwrongpassword>4)|| (bankingstable5.ctrforwronglogin>4) )
+			if( (bankingstable6.ctrforwrongpassword>4)|| (bankingstable6.ctrforwronglogin>4) )
 			  {  
-			  	bankingstable5.block=true;
+			  	bankingstable6.block=true;
 			  	System.out.println("you crossed the attempt limit");
 			  	System.out.println("contact the admin");
 			  
 			  }
-
-
 		}
-
 	}  
 }	
-
-
-
-
