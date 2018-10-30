@@ -98,7 +98,6 @@ public class bankingstable6
  	    	System.out.println("!!!Please insert a number !!! [Exception from homepagefunc] "); 
  	    	homepage(); 
  	     } //catch(FileNotFoundException x){System.out.println("hello there is some error");}
-
  	}
  	
 
@@ -274,21 +273,16 @@ public class bankingstable6
 
  		System.out.println("Enter Your Username ");
  		tempuser = in.nextLine();
- 		//acno1 = in.nextInt();
- 		//System.out.println("your option is :"+acno1);
  		System.out.println("Enter Your 10 digit Password");
  		pass1 = in.nextInt();
- 		//System.out.println("your option is :"+pass1);
+ 		
  	   }
  	   catch(InputMismatchException e2){System.out.println("Please Enter name for id and Numbers for password [Exception from login funcn] "); }
  		
  		verify(tempuser,pass1);
- 		//System.out.println("value of temp :"+verified);
  		
  	return 0;
- 	}
-
-   
+ 	}  
 
     public static void verify(String tempuser , int pass)
 	{
@@ -311,10 +305,10 @@ public class bankingstable6
  			{	
  				name=tempuser;
  				clrscr();
- 				System.out.println("Hi, "+tempuser+" welcome to ABC BANK the most trustable bank in the country\n ");
- 				
+ 				System.out.println("Hi, "+tempuser+" welcome to ABC BANK the most trustable bank in the country\n ");				
  				accountmenu();
  			}
+
  		else if (verified==0){ ctrforwronglogin+=1;
 							   System.out.println("your entered details are wrong");
 							   System.out.println("attempt"+ctrforwronglogin);		                        
@@ -365,23 +359,36 @@ public class bankingstable6
     
     public static void addbalance()
     {  int temp;
-    	
+     try {
     	Scanner sc = new Scanner(System.in);
     	System.out.println("Enter the amount you want to add(in numbers) :");
     	temp = sc.nextInt();
     	balancetemp+=temp;
     	System.out.println("Your amount is added Successfully");   	
+    	}
+    	catch(InputMismatchException e1 )
+ 	     {   
+ 	    	clrscr(); 
+ 	    	System.out.println("!!!Please insert a number !!! [Exception from addbalancefunc]\n "); 
+ 	    	addbalance(); 
+ 	     }
     }
 
     public static void minusbalance()
     {
     	int temp;
-    	
+    	try {
     	Scanner sc = new Scanner(System.in);
     	System.out.println("Enter the amount you want to withdraw(in numbers) :");
     	temp = sc.nextInt();
     	balancetemp-=temp;
-    	System.out.println("Your amount is withdrawn Successfully");   	
+    	System.out.println("Your amount is withdrawn Successfully"); 
+    	} catch(InputMismatchException e1 )
+ 	     {   
+ 	    	clrscr(); 
+ 	    	System.out.println("!!!Please insert a number !!! [Exception from minusbalancefunc] \n"); 
+ 	    	minusbalance(); 
+ 	     }  	
     }
  
 static aspect accountchoice
@@ -396,8 +403,7 @@ static aspect accountchoice
 					int key = sc.nextInt();
 					if(key == 1111)
 						{   clrscr(); 
-							System.out.println("We Offer the Best security for Corporate User");							
-							
+							System.out.println("We Offer the Best security for Corporate User");														
 						} 
 
 					else {  System.out.println("!!!! Your Corporate security key is not valid !!!!");
@@ -412,10 +418,8 @@ static aspect accountchoice
 		
 		before() : feedback()
 		{
-			System.out.println("how many Star would you like to give for the service. (on the scale of 5)");
-			
+			System.out.println("how many Star would you like to give for the service. (on the scale of 5)");			
 			int n = bankingstable6.enterchoice();
-
 			System.out.println("THANK YOU for giving us "+n+" Star");
 
 		}
@@ -433,5 +437,14 @@ static aspect accountchoice
 			  
 			  }
 		}
+	/*
+   //after returning
+   //after throwing
+		@Before("businessService()")
+			public void doBeforeTask(){
+	   
+		}
+*/
+
 	}  
 }	
