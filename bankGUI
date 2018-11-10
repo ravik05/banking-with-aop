@@ -5,7 +5,6 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-
 public class guibank
 {
 	static int ctrforwrongpassword=0;
@@ -19,150 +18,161 @@ public class guibank
 	
 	static int totaluser=0;
 	static boolean block=false;
-	static String name; 
-
+	static String name;
+	static int n=0; 
+	
+	
 	static JFrame loginwindow = new JFrame("Welcome to Login Page");
-	static JFrame accountmenuwindow = new  JFrame("Hello "+name+", Sir");
+	static JFrame firstwindow = new JFrame("RPD Bank Home Page");
+  
+	static JTextField idbox = new JTextField();
+	static JPasswordField passbox = new JPasswordField();
 
 	public static void main(String[] args)
 	{
-		 totaluser=3;
-   	  		name="Ravi";
-    	    usernamearray[1] = "Ravi";			  //user 1
- 			usernamearray[2] = "prashant";		  //user 2
- 			usernamearray[3] = "deepak";		  //user 3
+		totaluser=3;
+   	name="Ravi";
+    usernamearray[1] = "Ravi";			  //user 1
+ 		usernamearray[2] = "prashant";		  //user 2
+ 		usernamearray[3] = "deepak";		  //user 3
 
-    	    userbalancearray[1] = 1200;
-			userbalancearray[2] = 800;
-			userbalancearray[3] = 600;
+    userbalancearray[1] = 1200;
+		userbalancearray[2] = 800;
+		userbalancearray[3] = 600;
 
-			userpasswordarray[1] = "pass1";
-			userpasswordarray[2] = "pass2";
-			userpasswordarray[3] = "pass3";
+		userpasswordarray[1] = "pass1";
+		userpasswordarray[2] = "pass2";
+		userpasswordarray[3] = "pass3";
 		
 
 		homepage();
 	}
 
-public static void homepage(){
+	public static void homepage()
+	{
 
-		final JFrame firstwindow;
-		
 		JLabel l1,l2;
 		JButton b1,b2,b3,b4,b5;
-
-		firstwindow = new JFrame("RPD Bank Home Page");
+		
 		firstwindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		firstwindow.setSize(500,500);
+		firstwindow.getContentPane().setBackground(new Color(102,255,102));
+	
 		firstwindow.setLocationRelativeTo(null);
-        firstwindow.setLayout(null);
+    firstwindow.setLayout(new GridLayout(8,1));
+
+       
+		l1 = new JLabel("Welcome to RPD Bank",SwingConstants.CENTER);
+
+    firstwindow.add(l1);
+  
 		
-/*
-		loginwindow = new JFrame("Welcome to login page");
-        loginwindow.setSize(400,400);
-		loginwindow.setLocationRelativeTo(null);
-        loginwindow.setLayout(null);
-		loginwindow.setVisible(false);
-
-*/
-		l1 = new JLabel("Welcome to RPD Bank");
-		l1.setBounds(150,30,200,40);
-		firstwindow.add(l1);
-		//final JTextField tf = new JTextField();
-		//tf.
-		//first.add(tf);
 		final JLabel l5;
-		l5 = new JLabel("######");
-        l5.setBounds(150,60,200,40);
-        l5.setVisible(false);
-        firstwindow.add(l5);  
-
-		b1 = new JButton("Go To Login Page");  
-        b1.setBounds(150,150,200,40); 
-        firstwindow.add(b1);
-
-        b2 = new JButton("Go Admin Login Page");  
-        b2.setBounds(150,200,200,40);
-		firstwindow.add(b2);
+		l5 = new JLabel("#####",SwingConstants.CENTER);
+    l5.setVisible(false);
+    firstwindow.add(l5);  
+	     
+		b1 = new JButton("Go To Login Page");   
+    firstwindow.add(b1);
         
-        b3 = new JButton("Find the Branches in Delhi");  
-        b3.setBounds(150,250,200,40);
-        firstwindow.add(b3);
+    b2 = new JButton("Go Admin Login Page");  
+    firstwindow.add(b2);
+             
+    b3 = new JButton("Find the Branches in Delhi");  
+    firstwindow.add(b3);
 
-        b4 = new JButton("Contact us Here");  
-        b4.setBounds(150,300,200,40); 
-        firstwindow.add(b4);
+    b4 = new JButton("Contact us Here");  
+    firstwindow.add(b4);
 
-        b5 = new JButton("EXIT");  
-        b5.setBounds(150,350,200,40); 
-        firstwindow.add(b5);
+    b5 = new JButton("EXIT");  
+    firstwindow.add(b5);
 
-        b1.addActionListener(new ActionListener()
-        {
+      
+    firstwindow.setVisible(true);
+    b1.addActionListener(new ActionListener()
+      {
         	public void actionPerformed(ActionEvent e)
         	{
         		//firstwindow.setVisible(false );
+        		firstwindow.setVisible(false);
+        	//	loginwindow.setVisible(true);
         		login();
         		
-        		l5.setVisible(true);
-        		l5.setText("Button 1 is clicked");
-        		//loginwindow.setVisible(true);
-        		firstwindow.setVisible(true); 
+        	 //	l5.setVisible(true);
+        	 //	l5.setText("Button 1 is clicked");
+        		//loginwindow.setVisible(true);       	 
         	}
-        });
+      } );
 
-        b5.addActionListener( new ActionListener()
+    b5.addActionListener( new ActionListener()
         {
         	public void actionPerformed(ActionEvent e)
         	{
         		System.exit(0);
         	}
-        });
-                     		
-     firstwindow.setVisible(true);   
+        });       
 	}
 
 	
+
+
 	public static void login()
         {
+        	
+          firstwindow.setVisible(false);
         	loginwindow.setSize(500,500);
-        	loginwindow.setLocation(20,200);
-			//loginwindow.setLocationRelativeTo(null);
+        	loginwindow.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
+        	//loginwindow.setLocation(20,200);
+        	loginwindow.setLocationRelativeTo(null);
+       		loginwindow.getContentPane().setBackground(new Color(102,255,102));
+       		loginwindow.setLocationRelativeTo(null);
        		loginwindow.setLayout(null);
-			
-       		//JLabel l1,l2;
+          loginwindow.setResizable(false);
 
        		JLabel l1 = new JLabel("Enter Your UserId");
-       		l1.setBounds(150,50,200,40);
+       		l1.setBounds(150,50,200,30);
        		loginwindow.add(l1);
 
-       		JTextField t1 = new JTextField();    		
-       		t1.setBounds(150,100,200,40);
-       		loginwindow.add(t1);
+       		idbox.setText("");     		
+       		idbox.setBounds(150,100,200,30);
+       		loginwindow.add(idbox);
 
-       		JLabel l2 = new JLabel("Enter your Password");
-       		l2.setBounds(150,160,200,40);
-       		loginwindow.add(l2);
+          final JLabel l2 = new JLabel("UserId is not Valid");
+          l2.setBounds(150,130,200,30);
+          l2.setVisible(false);
+          loginwindow.add(l2);
 
-       		JPasswordField t2 = new JPasswordField();
-       		t2.setBounds(150,210,200,40);
-       		loginwindow.add(t2);
+       		JLabel l3 = new JLabel("Enter your Password");
+       		l3.setBounds(150,180,200,30);
+       		loginwindow.add(l3);
+
+       		passbox.setText(""); 
+       		passbox.setBounds(150,230,200,30);
+       		loginwindow.add(passbox);
+
+          final JLabel l4 = new JLabel("wrong password");
+          l4.setBounds(150,260,200,30);
+          l4.setVisible(false);
+          loginwindow.add(l4);
 
        		JButton b1 = new JButton("Login");
-       		b1.setBounds(150,270,200,40);
-       		loginwindow.add(b1);
-
-
+       		b1.setBounds(150,310,200,30);
+       		loginwindow.add(b1);      	
        		
        		 b1.addActionListener(new ActionListener()
        		 {
         		public void actionPerformed(ActionEvent e)
         			{       		
-        				String enteredid = t1.getText();
-        				String enteredpass = t2.getText();
+        				l2.setVisible(false);
+                l4.setVisible(false);
+                String enteredid = idbox.getText();
+        				String enteredpass = passbox.getText();
 
         				int temp=0;
 	 	
+
+
+
  						for(int i=1;i<=totaluser;i++)								// verification of username is done here 
  						{
  							if(enteredid.equals(usernamearray[i])) 
@@ -176,48 +186,221 @@ public static void homepage(){
  							} 		
  						}
 
-        				if(temp==2){ name = enteredid; accountmenu();}       		      			
+        				if(temp==2){ name = enteredid; loginwindow.dispose(); accountmenu();} 
+                else if(temp==0) { l2.setVisible(true);}
+                else if(temp==1) { l4.setVisible(true);}     		      			
         			}
-       		 });
-
-			loginwindow.setVisible(true);
-			
+       		 });			
+			 
         }
 
         public static void accountmenu()
         {
+          final JFrame accountmenuwindow = new  JFrame("Hello "+name+", Sir");
         	accountmenuwindow.setSize(500,500);
-        	accountmenuwindow.setLayout(null);
-        	JButton b1,b2,b3,b4,b5,b6;
+        	accountmenuwindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        	accountmenuwindow.getContentPane().setBackground(new Color(102,255,102));
+        	accountmenuwindow.setLocationRelativeTo(null);
+        	accountmenuwindow.setLayout(new GridLayout(8,1));
+         // accountmenuwindow.setLayout(null);
+        	JButton b1,b2,b3,b4,b5,b6,updatebutton;
 
-        	b1 = new JButton("Add Balance");
-        	b1.setBounds(150,50,300,40);
+        	JLabel l1,l2;
+
+          l1 = new JLabel("UserId  : "+name,SwingConstants.CENTER);
+          //l1.setBounds(150,10,300,20);
+          accountmenuwindow.add(l1);
+
+          l2 = new JLabel("Balance : "+balancetemp+"Rs",SwingConstants.CENTER);
+         // l2.setBounds(150,30,300,20);
+          accountmenuwindow.add(l2);
+
+          	updatebutton = new JButton("Update Balance");
+          	accountmenuwindow.add(updatebutton);
+
+          	b1 = new JButton("Add Balance");
+        //	b1.setBounds(150,50,300,40);
         	accountmenuwindow.add(b1);
         	
         	b2 = new JButton("Withdraw Money");
-        	b2.setBounds(150,100,300,40);
+         // b2.setBounds(150,100,300,40);
         	accountmenuwindow.add(b2);
 
-        	b3 = new JButton("Transfer to Other Person Account");
-        	b3.setBounds(150,150,300,40);
-        	accountmenuwindow.add(b3);
+        	//b3 = new JButton("Transfer to Other Person Account");
+        //	b3.setBounds(150,150,300,40);
+        	//accountmenuwindow.add(b3);
 
-        	b4 = new JButton("LOGIN To another Account");
-        	b4.setBounds(150,200,300,40);
+        	b4 = new JButton("LOGOUT");
+        	//b4.setBounds(150,200,300,40);
         	accountmenuwindow.add(b4);
 
-        	b5 = new JButton("Logout & Go To Homepage");
-        	b5.setBounds(150,250,300,40);
-        	accountmenuwindow.add(b5);
+        	updatebutton.addActionListener(new ActionListener()
+        		{
+        			public void actionPerformed(ActionEvent b1)
+        			{
+        				accountmenu();
+        				accountmenuwindow.dispose();
 
-        	b6 = new JButton("Logout & EXIT");
-        	b6.setBounds(150,300,300,40);
-        	accountmenuwindow.add(b6);
+        			}
+        		});
+	
+
+	        b1.addActionListener(new ActionListener()
+	        		{
+	        			public void actionPerformed(ActionEvent b1)
+	        			{
+	        				addbalance();
+	        			}
+	        		});
+
+	    	b2.addActionListener(new ActionListener()
+        		{
+        			public void actionPerformed(ActionEvent b1)
+        			{
+        				minusbalance();
+        			}
+        		});
+
+
+
+       		b4.addActionListener( new ActionListener()
+        	{
+        	public void actionPerformed(ActionEvent e)
+        	{
+        	 logout();	
+            firstwindow.setVisible(true);        		
+            accountmenuwindow.dispose();
+        	}
+       		});
         	
         	accountmenuwindow.setVisible(true);
         }
-/*
+
+    public static void addbalance()
+    {  
+    	final JFrame addbalancewindow = new JFrame("ADD BALANCE");
+
+        addbalancewindow.setSize(500,500);
+        addbalancewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addbalancewindow.getContentPane().setBackground(new Color(102,255,102));
+        addbalancewindow.setLocationRelativeTo(null);
+        addbalancewindow.setLayout(new GridLayout(7,1));
+
+        JLabel l1 = new JLabel("ENTER THE AMOUNT YOU WANT TO ADD (IN RUPEES)",SwingConstants.CENTER); addbalancewindow.add(l1);
+       final JLabel l2 = new JLabel("",SwingConstants.CENTER); addbalancewindow.add(l2); l2.setVisible(false);
+       final JTextField amountfield = new JTextField("0"); addbalancewindow.add(amountfield);
+       final JButton okbutton = new JButton("OK");      addbalancewindow.add(okbutton);
+        JButton closebutton = new JButton("Close");  addbalancewindow.add(closebutton);
+
+    	
+    	okbutton.addActionListener(new ActionListener()
+    	{
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			String s1 = amountfield.getText();
+        		int temp = 0 ;
+        				
+        				try{temp = Integer.parseInt(s1); 
+        				}catch(Exception g){System.out.println("Error while parsing"); 
+        									l2.setText("Please enter numbers only");
+        									l2.setVisible(true);}
+
+        				if(temp>0){ balancetemp+= temp; 
+        							l2.setText("Amount is added succesfully close this window"); 
+        							l2.setVisible(true);
+        							okbutton.setVisible(false); }    				
+        							//addbalancewindow.dispose();
+    		}
+
+    	});
+
+    	closebutton.addActionListener(new ActionListener()
+    	{
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			addbalancewindow.dispose();
+    		}
+
+    	});
+
+	addbalancewindow.setVisible(true);
+	 }
+	
+	
+
+    public static void minusbalance()
+    {
+    	
+
+    	final JFrame minusbalancewindow = new JFrame("Withdraw Money");
+
+        minusbalancewindow.setSize(500,500);
+        minusbalancewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        minusbalancewindow.getContentPane().setBackground(new Color(102,255,102));
+        minusbalancewindow.setLocationRelativeTo(null);
+        minusbalancewindow.setLayout(new GridLayout(7,1));
+
+        JLabel l1 = new JLabel("ENTER THE AMOUNT YOU WANT TO WITHDRAW (IN RUPEES)",SwingConstants.CENTER); minusbalancewindow.add(l1);
+       final JLabel l2 = new JLabel("",SwingConstants.CENTER); minusbalancewindow.add(l2); l2.setVisible(false);
+       final JTextField amountfield = new JTextField("0"); minusbalancewindow.add(amountfield);
+       final JButton okbutton = new JButton("OK");      minusbalancewindow.add(okbutton);
+        JButton closebutton = new JButton("Close");  minusbalancewindow.add(closebutton);
+
+    	
+    	okbutton.addActionListener(new ActionListener()
+    	{
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			String s1 = amountfield.getText();
+        		int temp = 0 ;
+        				
+        				try{temp = Integer.parseInt(s1); 
+        				}catch(Exception g){System.out.println("Error while parsing"); 
+        									l2.setText("Please enter numbers only");
+        									l2.setVisible(true);}
+
+        				if(temp>0){ balancetemp-= temp; 
+        							l2.setText("Amount is withdrawn succesfully close this window"); 
+        							l2.setVisible(true);
+        							okbutton.setVisible(false); }    				
+        							//addbalancewindow.dispose();
+    		}
+
+    	});
+
+    	closebutton.addActionListener(new ActionListener()
+    	{
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			minusbalancewindow.dispose();
+    		}
+
+    	});
+
+	minusbalancewindow.setVisible(true);
+
+    }
  
+
+
+    public static void logout()       
+ 	{
+ 		int temp=0;
+	 	
+ 		for(int i=1;i<=totaluser;i++)
+ 		{
+ 			if(name.equals(usernamearray[i])) 
+ 				{ userbalancearray[i]=balancetemp; 
+ 				
+ 					break;
+ 				} 		
+ 		}
+		
+	 	balancetemp=0;
+ 		System.out.println("\nYou have Successfully Logout");
+ 	}
+
+
 	static aspect accountchoice
 		{
 
@@ -225,15 +408,73 @@ public static void homepage(){
 
 			before() : security()
 				{
-					JFrame secure = new JFrame("security CheckPoint by AOP");
-					secure.setSize(300,300);
-					secure.setLocation(100,100);
-	
-					secure.setLayout(null);
+					loginwindow.setVisible(false);
+					final JFrame secure = new JFrame("Security CheckPoint by AOP"); 
+					secure.setSize(500,500);
+					secure.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//secure.setLocation(100,100);
+					secure.setLocationRelativeTo(null);
+					secure.getContentPane().setBackground(new Color(102,255,102));
+					
+					Random rand = new Random();		
+					int n2 =rand.nextInt(9000) + 1000 ;
+					
+					
+					String str = "ok";
+ 					n =  n2;
+ 			
+ 			try{	
+ 					FileWriter fw=new FileWriter("new otp.txt"); 				
+					str = String.valueOf(n);
+
+	   				 for (int i = 0; i < str.length(); i++) 
+           			 fw.write(str.charAt(i));
+           
+       				 fw.close();
+       			 //System.out.println("OTP is sent to file ");
+       			}catch(Exception e){ System.out.println("file not found");}
+
+       			System.out.println("\n\nOTP IS : "+n);
+       			
+       			JLabel l1 = new JLabel("Enter the OTP sent to your registered mobile number");
+       		//	l1.setBounds(150,50,300,40);
+       			secure.add(l1);			
+       			
+       			final JTextField text = new JTextField();
+       			text.setText("");    		
+       		//	text.setBounds(150,100,200,40);
+       			secure.add(text);
+
+       			JButton okbutton = new JButton("CHECK");
+       			//okbutton.setBounds(150,200,100,40);
+       			secure.add(okbutton);       			
+
+       			 okbutton.addActionListener(new ActionListener()
+					{
+        			public void actionPerformed(ActionEvent e)
+        			{       		
+        				String s1 = text.getText();
+        				int enterednumber = 0 ;
+        				
+        				try{enterednumber = Integer.parseInt(s1);}catch(Exception g){System.out.println("Error while parsing");}
+        				
+ 						 if(enterednumber == 0){System.out.println("Please enter the OTP ");}
+ 						
+ 						 if(enterednumber == n)
+ 						 	{   System.out.println("OTP is correct");                 
+ 						 		loginwindow.setVisible(true); 					 	
+                				secure.dispose();
+ 						 	}
+ 						 else {System.out.println("WRONG OTP"); secure.setVisible(true); loginwindow.setVisible(false); }  
+ 						 	      			
+        			}
+					});
+       		
+					secure.setLayout(new GridLayout(7,1));
 					secure.setVisible(true);
 				}
 		}
-*/
+
 
 
 }
