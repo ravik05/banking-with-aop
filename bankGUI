@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;  
 import javax.swing.*;
+import javax.swing.table.*;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -27,7 +28,9 @@ public class guibank
 	static JFrame adminloginwindow = new JFrame("Admin Login");
   
 	static JTextField idbox = new JTextField();
-	static JPasswordField passbox = new JPasswordField();
+	static JPasswordField passbox = new JPasswordField(); 
+	static JTextField adminidbox = new JTextField();
+	static JPasswordField adminpassbox = new JPasswordField();
 
 	public static void main(String[] args)
 	{
@@ -47,9 +50,10 @@ public class guibank
 		
 
 		homepage();
+		System.out.println("program terminated safely");
 	}
 
-	public static void homepage()
+	public static int homepage()
 	{
 
 		JLabel l1,l2;
@@ -57,15 +61,15 @@ public class guibank
 		
 		firstwindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		firstwindow.setSize(500,500);
-		firstwindow.getContentPane().setBackground(new Color(102,255,102));
+		firstwindow.getContentPane().setBackground(new Color(71,209,71));
 	
 		firstwindow.setLocationRelativeTo(null);
     firstwindow.setLayout(new GridLayout(8,1));
 
        
 		l1 = new JLabel("Welcome to RPD Bank",SwingConstants.CENTER);
-
-    firstwindow.add(l1);
+		l1.setSize(200,200);
+    	firstwindow.add(l1);
   
 		
 		final JLabel l5;
@@ -118,49 +122,56 @@ public class guibank
         {
         	public void actionPerformed(ActionEvent e)
         	{
+        		adminloginwindow.dispose();
+        		loginwindow.dispose();
+        		firstwindow.dispose();
+        		logout();
+        		
         		System.exit(0);
         	}
+        
         });       
+	return 0;
 	}
 
-	public static void adminlogin() 
+ public static void adminlogin() 
  	{  
  		
  		//firstwindow.setVisible(false);
-        adminloginwindow.setSize(500,500);
-        adminloginwindow.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
+    	adminloginwindow.setSize(500,500);
+    	adminloginwindow.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
         	//loginwindow.setLocation(20,200);
-        adminloginwindow.setLocationRelativeTo(null);
-       	adminloginwindow.getContentPane().setBackground(new Color(102,255,102));
-       	adminloginwindow.setLocationRelativeTo(null);
-       	adminloginwindow.setLayout(null);
-        adminloginwindow.setResizable(false);
+    	adminloginwindow.setLocationRelativeTo(null);
+    	adminloginwindow.getContentPane().setBackground(new Color(255,92,51));
+    	adminloginwindow.setLocationRelativeTo(null);
+    	adminloginwindow.setLayout(null);
+    	adminloginwindow.setResizable(false);
 
-        final String adminid = "admin" ;
+    	final String adminid = "admin" ;
  		final String adminpass= "password";
  		
-        JLabel l1 = new JLabel("Enter Your AdminId");
-       		l1.setBounds(150,50,200,30);
-       		adminloginwindow.add(l1);
+    	JLabel l1 = new JLabel("Enter Your AdminId");
+    	l1.setBounds(150,50,200,30);
+    	adminloginwindow.add(l1);
 
       // final JTextField boxid = new JTextField(" "); 	
-       		idbox.setText("");     		
-       		idbox.setBounds(150,100,200,30);
-       	adminloginwindow.add(idbox);
+    	adminidbox.setText("");     		
+    	adminidbox.setBounds(150,100,200,30);
+    	adminloginwindow.add(adminidbox);
 
-          final JLabel l2 = new JLabel("AdminId is not Valid");
-          l2.setBounds(150,130,200,30);
-          l2.setVisible(false);
-          adminloginwindow.add(l2);
+    	final JLabel l2 = new JLabel("AdminId is not Valid");
+    	l2.setBounds(150,130,200,30);
+    	l2.setVisible(false);
+    	adminloginwindow.add(l2);
 
-       		JLabel l3 = new JLabel("Enter your Password");
+    	JLabel l3 = new JLabel("Enter your Password");
        		l3.setBounds(150,180,200,30);
        		adminloginwindow.add(l3);
 
        	//final JPasswordField boxpass = new JPasswordField(" ");	
-       		passbox.setText(""); 
-       		passbox.setBounds(150,230,200,30);
-       		adminloginwindow.add(passbox);
+       		adminpassbox.setText(""); 
+       		adminpassbox.setBounds(150,230,200,30);
+       		adminloginwindow.add(adminpassbox);
 
           final JLabel l4 = new JLabel("wrong password");
           l4.setBounds(150,260,200,30);
@@ -169,7 +180,11 @@ public class guibank
 
        		JButton b1 = new JButton("Login");
        		b1.setBounds(150,310,200,30);
-       		adminloginwindow.add(b1);      	
+       		adminloginwindow.add(b1); 
+    	
+    		JButton closebutton = new JButton("close");
+       		closebutton.setBounds(150,370,200,30);
+       		adminloginwindow.add(closebutton);    
  		
        	 b1.addActionListener(new ActionListener()
        		 {
@@ -178,19 +193,20 @@ public class guibank
         				l4.setVisible(false);
         				l2.setVisible(false);
 
-        				String tempid = idbox.getText();
- 						String temppass = passbox.getText();
+        				String tempid = adminidbox.getText();
+ 						String temppass = adminpassbox.getText();
 
 
         				if(tempid.equals(adminid)) 
  							{ 	
  								if(temppass.equals(adminpass))				   
  								{
- 									System.out.println("You are an Authenticated person"); 
+ 									System.out.println("You are an Authenticated person");
+ 									adminpage(); 
  									adminloginwindow.dispose(); //adminpage(); 		
  								
  								}
- 								else l4.setVisible(true);
+ 								else l4.setVisible(true); adminpassbox.setText("");
  							}
 
 
@@ -198,13 +214,139 @@ public class guibank
 
  					}
  				
-       		 });			
+       		 });	
+
+
+       		 	closebutton.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		firstwindow.setVisible(true);
+
+        		adminloginwindow.dispose();
+        	}
+        });		
 
  		adminloginwindow.setVisible(true);	
  	}
 
 
-	public static void login()
+ public static void adminpage()
+ 	{
+ 		firstwindow.setVisible(false);
+ 		final JFrame adminpagewindow = new  JFrame("Hello Sir, welocome to administration page");
+        adminpagewindow.setSize(500,500);
+       	adminpagewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        adminpagewindow.getContentPane().setBackground(new Color(255,92,51));
+        adminpagewindow.setLocationRelativeTo(null);
+        adminpagewindow.setLayout(new GridLayout(8,1));
+        // accountmenuwindow.setLayout(null);
+        JButton b1,b2,b3,b4,b5,b6,updatebutton;
+
+        JLabel l1,l2;
+
+        l1 = new JLabel("first Label  : ",SwingConstants.CENTER);
+        adminpagewindow.add(l1);
+
+        l2 = new JLabel("second Label : ",SwingConstants.CENTER);
+        adminpagewindow.add(l2);
+
+        updatebutton = new JButton("Refresh");
+        adminpagewindow.add(updatebutton);
+
+        b1 = new JButton("Create A New Account");
+        adminpagewindow.add(b1);
+        	
+        b2 = new JButton("Delete an Account");
+        adminpagewindow.add(b2);
+
+        b3 = new JButton("Show User Details");
+        adminpagewindow.add(b3);
+
+        	//b4 = new JButton("ADMIN LOGOUT");
+        	//adminpagewindow.add(b4);
+        
+        JButton closebutton = new JButton("ADMIN LOGOUT");
+       	adminpagewindow.add(closebutton); 
+
+        b3.addActionListener(new ActionListener()
+        	{
+        		public void actionPerformed(ActionEvent e)
+        		{
+        			showuserdetails();
+        		}
+        	});
+
+        closebutton.addActionListener(new ActionListener()
+        	{
+        		public void actionPerformed(ActionEvent e)
+        		{
+        			firstwindow.setVisible(true);
+        			adminpagewindow.dispose();
+        		}
+       	 	});
+        	
+        	adminpagewindow.setVisible(true);
+ 	}
+
+ 	public static void createnewaccount()
+ 	{
+
+
+
+ 		
+ 	}
+
+ 	public static void showuserdetails()
+ 	{
+
+ 		JFrame f;
+ 		DefaultTableModel model1;  
+ 		 
+ 		JTable table1;    
+    	    
+    	f=new JFrame("All User Details");
+    	//String column[]={"ID","NAME","BALANCE","PASSWORD"};     
+    	//String data[][]={ {"101","Amit","670000","strong"},{"102","Jai","780000","rock"},{"101","Sachin","700000","q2w13e"} };    
+    	        
+    	model1 = new DefaultTableModel();
+    	//table1 = new JTable(data,column);
+
+    	table1 = new JTable(model1);
+    	model1.addColumn("Sr.NO.");
+    	model1.addColumn("USERID");
+    	model1.addColumn("BALANCE");		//str = String.valueOf(n);
+    	model1.addColumn("PASSWORD");
+    	
+    	String temp = String.valueOf(totaluser);
+    	model1.addRow(new Object[]{"total","user","are :",temp});
+    	//model1.addRow(new Object[]{temp,"Sachin","34550","pass786"});
+
+    	int total = 0;
+ 			System.out.println("\nTotal user : "+totaluser);
+ 		for(int i=1;i<=totaluser;i++)
+ 			{ 
+ 				String si = String.valueOf(i);
+ 				String sbalance = String.valueOf(userbalancearray[i]);
+
+ 				System.out.println(usernamearray[i]+" : "+userbalancearray[i]);
+ 															
+ 				model1.addRow(new Object[]{si,usernamearray[i],sbalance,userpasswordarray[i]});
+
+ 				total=total+userbalancearray[i];
+ 			}
+ 														
+ 		System.out.println("\nTotal money bank have now : " +total); 
+ 														 
+
+    	table1.setBounds(30,40,200,300);          
+    	JScrollPane sp=new JScrollPane(table1);    
+    	f.add(sp);          
+    	f.setSize(500,400);    
+    	f.setVisible(true);    
+ 	}
+
+ public static void login()
     {
         	
           firstwindow.setVisible(false);
@@ -212,7 +354,7 @@ public class guibank
         	loginwindow.setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
         	//loginwindow.setLocation(20,200);
         	loginwindow.setLocationRelativeTo(null);
-       		loginwindow.getContentPane().setBackground(new Color(102,255,102));
+       		loginwindow.getContentPane().setBackground(new Color(71,209,71));
        		loginwindow.setLocationRelativeTo(null);
        		loginwindow.setLayout(null);
           loginwindow.setResizable(false);
@@ -290,8 +432,6 @@ public class guibank
         	}
         });
 
-
-
     }
 
 	public static void accountmenu()
@@ -299,7 +439,7 @@ public class guibank
           final JFrame accountmenuwindow = new  JFrame("Hello "+name+", Sir");
         	accountmenuwindow.setSize(500,500);
         	accountmenuwindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        	accountmenuwindow.getContentPane().setBackground(new Color(102,255,102));
+        	accountmenuwindow.getContentPane().setBackground(new Color(71,209,71));
         	accountmenuwindow.setLocationRelativeTo(null);
         	accountmenuwindow.setLayout(new GridLayout(8,1));
          // accountmenuwindow.setLayout(null);
@@ -382,7 +522,7 @@ public class guibank
 
         addbalancewindow.setSize(500,500);
         addbalancewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addbalancewindow.getContentPane().setBackground(new Color(102,255,102));
+        addbalancewindow.getContentPane().setBackground(new Color(71,209,71));
         addbalancewindow.setLocationRelativeTo(null);
         addbalancewindow.setLayout(new GridLayout(7,1));
 
@@ -436,7 +576,7 @@ public class guibank
 
         minusbalancewindow.setSize(500,500);
         minusbalancewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        minusbalancewindow.getContentPane().setBackground(new Color(102,255,102));
+        minusbalancewindow.getContentPane().setBackground(new Color(255,26,26));
         minusbalancewindow.setLocationRelativeTo(null);
         minusbalancewindow.setLayout(new GridLayout(7,1));
 
@@ -514,7 +654,7 @@ public class guibank
 					secure.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					//secure.setLocation(100,100);
 					secure.setLocationRelativeTo(null);
-					secure.getContentPane().setBackground(new Color(102,255,102));
+					secure.getContentPane().setBackground(new Color(81,220,236));
 					
 					Random rand = new Random();		
 					int n2 =rand.nextInt(9000) + 1000 ;
@@ -537,12 +677,12 @@ public class guibank
        			System.out.println("\n\nOTP IS : "+n);
        			
        			JLabel l1 = new JLabel("Enter the OTP sent to your registered mobile number",SwingConstants.CENTER);
-       		//	l1.setBounds(150,50,300,40);
+       			//l1.setBounds(150,50,300,40);
        			secure.add(l1);			
        			
        			final JTextField text = new JTextField();
        			text.setText("");    		
-       		//	text.setBounds(150,100,200,40);
+       			//text.setBounds(150,100,200,40);
        			secure.add(text);
 
        			final JLabel l2 = new JLabel("OTP is not valid");
@@ -554,6 +694,7 @@ public class guibank
        			secure.add(okbutton); 
 
        			JButton closebutton = new JButton("Close");
+       			//closebutton.setBounds(150,250,100,40);
        			secure.add(closebutton);      			
 
        			 okbutton.addActionListener(new ActionListener()
@@ -588,6 +729,7 @@ public class guibank
        			 	});
        		
 					secure.setLayout(new GridLayout(7,1));
+					//secure.setLayout(new FlowLayout(SwingConstants.CENTER));
 					secure.setVisible(true);
 				}
 		}
