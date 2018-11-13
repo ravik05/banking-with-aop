@@ -2,11 +2,26 @@ import java.awt.*;
 import java.awt.event.*;  
 import javax.swing.*;
 import javax.swing.table.*;
+import javax.swing.Timer.*;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
 
 public class guibank
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Main method Start safely");
+		bankstart rpd1 = new bankstart();
+		
+		rpd1.homepage();
+		
+		System.out.println("Main method terminated safely");
+	}
+
+}
+
+class bankstart
 {
 	static int ctrforwrongpassword=0;
 	static int ctrforwronglogin=0;
@@ -32,33 +47,32 @@ public class guibank
 	static JTextField adminidbox = new JTextField();
 	static JPasswordField adminpassbox = new JPasswordField();
 
-	public static void main(String[] args)
+
+
+	static int homepage()
 	{
+
 		totaluser=3;
-   	name="Ravi";
-    usernamearray[1] = "Ravi";			  //user 1
+   		name="Ravi";
+    	usernamearray[1] = "Ravi";			  //user 1
  		usernamearray[2] = "prashant";		  //user 2
  		usernamearray[3] = "deepak";		  //user 3
 
-    userbalancearray[1] = 1200;
+    	userbalancearray[1] = 1200;
 		userbalancearray[2] = 800;
 		userbalancearray[3] = 600;
 
 		userpasswordarray[1] = "pass1";
 		userpasswordarray[2] = "pass2";
 		userpasswordarray[3] = "pass3";
-		
 
-		homepage();
-		System.out.println("program terminated safely");
-	}
-
-	public static int homepage()
-	{
 
 		JLabel l1,l2;
 		JButton b1,b2,b3,b4,b5;
-		
+
+		Image icon1 = Toolkit.getDefaultToolkit().getImage("E:\\rpdbankicon.png");  
+		firstwindow.setIconImage(icon1);  
+  
 		firstwindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		firstwindow.setSize(500,500);
 		firstwindow.getContentPane().setBackground(new Color(71,209,71));
@@ -100,7 +114,7 @@ public class guibank
         	{
         		//firstwindow.setVisible(false );
         		firstwindow.setVisible(false);
-        	//	loginwindow.setVisible(true);
+        		loginwindow.setVisible(true);
         		login();
         		
         	 //	l5.setVisible(true);
@@ -126,7 +140,7 @@ public class guibank
         		loginwindow.dispose();
         		firstwindow.dispose();
         		logout();
-        		
+        		System.out.println("program ends here");
         		System.exit(0);
         	}
         
@@ -134,7 +148,7 @@ public class guibank
 	return 0;
 	}
 
- public static void adminlogin() 
+ static void adminlogin() 
  	{  
  		
  		//firstwindow.setVisible(false);
@@ -231,7 +245,7 @@ public class guibank
  	}
 
 
- public static void adminpage()
+  static void adminpage()
  	{
  		firstwindow.setVisible(false);
  		final JFrame adminpagewindow = new  JFrame("Hello Sir, welocome to administration page");
@@ -269,6 +283,14 @@ public class guibank
         JButton closebutton = new JButton("ADMIN LOGOUT");
        	adminpagewindow.add(closebutton); 
 
+         b1.addActionListener(new ActionListener()
+        	{
+        		public void actionPerformed(ActionEvent e)
+        		{
+        			createnewaccount();
+        		}
+        	});
+
         b3.addActionListener(new ActionListener()
         	{
         		public void actionPerformed(ActionEvent e)
@@ -289,15 +311,108 @@ public class guibank
         	adminpagewindow.setVisible(true);
  	}
 
- 	public static void createnewaccount()
+ 	static void createnewaccount()
  	{
+
+ 		final JFrame newaccwindow = new JFrame("Create a new Account"); 
+    	newaccwindow.setSize(500,500);
+    	//newaccwindow.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        	//loginwindow.setLocation(20,200);
+    	newaccwindow.setLocationRelativeTo(null);
+    	newaccwindow.getContentPane().setBackground(new Color(255,92,51));
+    	newaccwindow.setLocationRelativeTo(null);
+    	newaccwindow.setLayout(null);
+    	newaccwindow.setResizable(false);
+
+    	//final String adminid = "admin" ;
+ 		//final String adminpass= "password";
+ 	
+    	JLabel l1 = new JLabel("Create a new USERID");
+    	l1.setBounds(150,50,200,30);
+    	newaccwindow.add(l1);
+
+       final JTextField textbox1 = new JTextField(""); 	
+    	textbox1.setText("");     		
+    	textbox1.setBounds(150,100,200,30);
+    	newaccwindow.add(textbox1);
+
+    	final JLabel l2 = new JLabel("USERID already exist");
+    	l2.setBounds(150,130,200,30);
+    	l2.setVisible(false);
+    	newaccwindow.add(l2);
+
+    	JLabel l3 = new JLabel("Create a new Password");
+       		l3.setBounds(150,180,200,30);
+       		newaccwindow.add(l3);
+
+       	final JPasswordField textbox2 = new JPasswordField("");	
+       		textbox2.setText(""); 
+       		textbox2.setBounds(150,230,200,30);
+       		newaccwindow.add(textbox2);
+
+          //final JLabel l4 = new JLabel("wrong password");
+          //l4.setBounds(150,260,200,30);
+          //l4.setVisible(false);
+          //adminloginwindow.add(l4);
+
+       		JButton b1 = new JButton("Create");
+       		b1.setBounds(150,310,200,30);
+       		newaccwindow.add(b1); 
+    	
+    		JButton closebutton = new JButton("close");
+       		closebutton.setBounds(150,370,200,30);
+       		newaccwindow.add(closebutton);    
+
+       			closebutton.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		newaccwindow.dispose();
+        	}
+        });
+
+
+    newaccwindow.setVisible(true);
+
+
+
+
+
+/*
+ 		String tempname;
+ 		boolean alreadyexist=false;												
+
+ 											Scanner in = new Scanner(System.in);
+ 											
+ 											System.out.println("Enter a Username for new user");
+ 											tempname=in.nextLine();
+
+ 											for(int i=1;i<=totaluser;i++)
+ 												{
+ 													if(tempname.equals(usernamearray[i])) 
+ 														{ System.out.println("Username already Exist \n try again with different Username ");
+ 														 alreadyexist=true; break;
+ 														} 		
+ 												}
+
+ 											if(alreadyexist==false)
+ 												{	totaluser++; 
+ 													usernamearray[totaluser]=tempname; 
+ 													System.out.println("Create new password : "); 
+ 													userpasswordarray[totaluser] = in.nextLine();
+ 													userbalancearray[totaluser]=0; 
+ 													System.out.println("\n !! New user added !!  \n "); 														
+ 												}
+*/
+
+
 
 
 
  		
  	}
 
- 	public static void showuserdetails()
+ static void showuserdetails()
  	{
 
  		JFrame f;
@@ -346,7 +461,7 @@ public class guibank
     	f.setVisible(true);    
  	}
 
- public static void login()
+ static void login()
     {
         	
           firstwindow.setVisible(false);
@@ -434,7 +549,9 @@ public class guibank
 
     }
 
-	public static void accountmenu()
+	private static JLabel showbalance ;
+
+	static void accountmenu()
     {
           final JFrame accountmenuwindow = new  JFrame("Hello "+name+", Sir");
         	accountmenuwindow.setSize(500,500);
@@ -445,19 +562,23 @@ public class guibank
          // accountmenuwindow.setLayout(null);
         	JButton b1,b2,b3,b4,b5,b6,updatebutton;
 
-        	JLabel l1,l2;
+        	JLabel l1;
 
+          
           l1 = new JLabel("UserId  : "+name,SwingConstants.CENTER);
           //l1.setBounds(150,10,300,20);
           accountmenuwindow.add(l1);
 
-          l2 = new JLabel("Balance : "+balancetemp+"Rs",SwingConstants.CENTER);
+        // final JLabel l2 = new JLabel("Balance : "+balancetemp+"Rs",SwingConstants.CENTER);
          // l2.setBounds(150,30,300,20);
-          accountmenuwindow.add(l2);
+         // accountmenuwindow.add(l2);
 
-          	updatebutton = new JButton("Update Balance");
-          	accountmenuwindow.add(updatebutton);
+          	showbalance = new JLabel("Balance : "+balancetemp+"Rs ",SwingConstants.CENTER);
+          	
+          	//showbalance.setText("Balance : "+balancetemp+"Rs");
+          	accountmenuwindow.add(showbalance);
 
+         
           	b1 = new JButton("Add Balance");
         //	b1.setBounds(150,50,300,40);
         	accountmenuwindow.add(b1);
@@ -472,17 +593,7 @@ public class guibank
 
         	b4 = new JButton("LOGOUT");
         	//b4.setBounds(150,200,300,40);
-        	accountmenuwindow.add(b4);
-
-        	updatebutton.addActionListener(new ActionListener()
-        		{
-        			public void actionPerformed(ActionEvent b1)
-        			{
-        				accountmenu();
-        				accountmenuwindow.dispose();
-
-        			}
-        		});
+        	accountmenuwindow.add(b4);       	
 	
 
 	        b1.addActionListener(new ActionListener()
@@ -490,6 +601,7 @@ public class guibank
 	        			public void actionPerformed(ActionEvent b1)
 	        			{
 	        				addbalance();
+	        				//l2.setText("Balance : "+balancetemp+"Rs");
 	        			}
 	        		});
 
@@ -528,7 +640,7 @@ public class guibank
 
         JLabel l1 = new JLabel("ENTER THE AMOUNT YOU WANT TO ADD (IN RUPEES)",SwingConstants.CENTER); addbalancewindow.add(l1);
        final JLabel l2 = new JLabel("",SwingConstants.CENTER); addbalancewindow.add(l2); l2.setVisible(false);
-       final JTextField amountfield = new JTextField("0"); addbalancewindow.add(amountfield);
+       final JTextField amountfield = new JTextField(""); addbalancewindow.add(amountfield);
        final JButton okbutton = new JButton("OK");      addbalancewindow.add(okbutton);
         JButton closebutton = new JButton("Close");  addbalancewindow.add(closebutton);
 
@@ -546,7 +658,8 @@ public class guibank
         									l2.setVisible(true);}
 
         				if(temp>0){ balancetemp+= temp; 
-        							l2.setText("Amount is added succesfully close this window"); 
+        							showbalance.setText("Balance : "+balancetemp+"Rs");
+        							l2.setText("Amount is added succesfully close this window");
         							l2.setVisible(true);
         							okbutton.setVisible(false); }    				
         							//addbalancewindow.dispose();
@@ -582,7 +695,7 @@ public class guibank
 
         JLabel l1 = new JLabel("ENTER THE AMOUNT YOU WANT TO WITHDRAW (IN RUPEES)",SwingConstants.CENTER); minusbalancewindow.add(l1);
        final JLabel l2 = new JLabel("",SwingConstants.CENTER); minusbalancewindow.add(l2); l2.setVisible(false);
-       final JTextField amountfield = new JTextField("0"); minusbalancewindow.add(amountfield);
+       final JTextField amountfield = new JTextField(""); minusbalancewindow.add(amountfield);
        final JButton okbutton = new JButton("OK");      minusbalancewindow.add(okbutton);
         JButton closebutton = new JButton("Close");  minusbalancewindow.add(closebutton);
 
@@ -600,10 +713,11 @@ public class guibank
         									l2.setVisible(true);}
 
         				if(temp>0){ balancetemp-= temp; 
+        							showbalance.setText("Balance : "+balancetemp+"Rs");
         							l2.setText("Amount is withdrawn succesfully close this window"); 
         							l2.setVisible(true);
         							okbutton.setVisible(false); }    				
-        							//addbalancewindow.dispose();
+        							//minusbalancewindow.dispose();
     		}
 
     	});
@@ -644,7 +758,7 @@ public class guibank
 	static aspect accountchoice
 		{
 
-			pointcut security() : call(* guibank.login(..)) ;
+			pointcut security() : call(* bankstart.login(..)) ;
 
 			before() : security()
 				{
@@ -728,8 +842,10 @@ public class guibank
        			 		}
        			 	});
        		
+					
 					secure.setLayout(new GridLayout(7,1));
 					//secure.setLayout(new FlowLayout(SwingConstants.CENTER));
+					//secure.setLayout(new BoxLayout(secure.getContentPane(),BoxLayout.PAGE_AXIS));
 					secure.setVisible(true);
 				}
 		}
