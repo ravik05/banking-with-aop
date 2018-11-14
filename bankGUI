@@ -15,7 +15,6 @@ public class guibank
 		bankstart rpd1 = new bankstart();
 		
 		rpd1.homepage();
-		rpd1.adminpage();
 		
 		System.out.println("Main method terminated safely");
 	}
