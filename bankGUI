@@ -15,6 +15,7 @@ public class guibank
 		bankstart rpd1 = new bankstart();
 		
 		rpd1.homepage();
+		rpd1.adminpage();
 		
 		System.out.println("Main method terminated safely");
 	}
@@ -26,17 +27,17 @@ class bankstart
 	static int ctrforwrongpassword=0;
 	static int ctrforwronglogin=0;
 
+	static String namearray[] = new String[14];
 	static String usernamearray[] = new String[14]; 
 	static int userbalancearray[] = new int[14];
 	static String userpasswordarray[] = new String[14];
-		
-	static int balancetemp=0;
-	
+
 	static int totaluser=0;
 	static boolean block=false;
 	static String name;
 	static int n=0; 
-	
+
+	static int activeaccno = 0;
 	
 	static JFrame loginwindow = new JFrame("Welcome to Login Page");
 	static JFrame firstwindow = new JFrame("RPD Bank Home Page");
@@ -47,25 +48,26 @@ class bankstart
 	static JTextField adminidbox = new JTextField();
 	static JPasswordField adminpassbox = new JPasswordField();
 
-
-
-	static int homepage()
+ static int homepage()
 	{
 
 		totaluser=3;
    		name="Ravi";
-    	usernamearray[1] = "Ravi";			  //user 1
- 		usernamearray[2] = "prashant";		  //user 2
- 		usernamearray[3] = "deepak";		  //user 3
+    	usernamearray[1] = "ravi05";			  //user 1
+ 		usernamearray[2] = "prashant04";		  //user 2
+ 		usernamearray[3] = "deepak02";		  //user 3
 
-    	userbalancearray[1] = 1200;
-		userbalancearray[2] = 800;
-		userbalancearray[3] = 600;
+    	namearray[1] = "Ravi Kumar";
+    	namearray[2] = "Prashant Sharma";
+    	namearray[3] = "Deepak Kumar";
 
 		userpasswordarray[1] = "pass1";
 		userpasswordarray[2] = "pass2";
 		userpasswordarray[3] = "pass3";
 
+		userbalancearray[1] = 1200;
+		userbalancearray[2] = 800;
+		userbalancearray[3] = 600;
 
 		JLabel l1,l2;
 		JButton b1,b2,b3,b4,b5;
@@ -78,7 +80,7 @@ class bankstart
 		firstwindow.getContentPane().setBackground(new Color(71,209,71));
 	
 		firstwindow.setLocationRelativeTo(null);
-    firstwindow.setLayout(new GridLayout(8,1));
+   		firstwindow.setLayout(new GridLayout(8,1));
 
        
 		l1 = new JLabel("Welcome to RPD Bank",SwingConstants.CENTER);
@@ -88,28 +90,28 @@ class bankstart
 		
 		final JLabel l5;
 		l5 = new JLabel("#####",SwingConstants.CENTER);
-    l5.setVisible(false);
-    firstwindow.add(l5);  
+   		l5.setVisible(false);
+    	firstwindow.add(l5);  
 	     
 		b1 = new JButton("Go To Login Page");   
-    firstwindow.add(b1);
+   		 firstwindow.add(b1);
         
-    b2 = new JButton("Go Admin Login Page");  
-    firstwindow.add(b2);
+   		 b2 = new JButton("Go Admin Login Page");  
+   		 firstwindow.add(b2);
              
-    b3 = new JButton("Find the Branches in Delhi");  
-    firstwindow.add(b3);
+   		 b3 = new JButton("Find the Branches in Delhi");  
+    	firstwindow.add(b3);
 
-    b4 = new JButton("Contact us Here");  
-    firstwindow.add(b4);
+    	b4 = new JButton("Contact us Here");  
+    	firstwindow.add(b4);
 
-    b5 = new JButton("EXIT");  
-    firstwindow.add(b5);
+    	b5 = new JButton("EXIT");  
+    	firstwindow.add(b5);
 
       
-    firstwindow.setVisible(true);
-    b1.addActionListener(new ActionListener()
-      {
+    	firstwindow.setVisible(true);
+    	b1.addActionListener(new ActionListener()
+     	 {
         	public void actionPerformed(ActionEvent e)
         	{
         		//firstwindow.setVisible(false );
@@ -121,9 +123,9 @@ class bankstart
         	 //	l5.setText("Button 1 is clicked");
         		//loginwindow.setVisible(true);       	 
         	}
-      } );
+     	 } );
 
-    b2.addActionListener( new ActionListener()
+    	b2.addActionListener( new ActionListener()
         {
         	public void actionPerformed(ActionEvent e)
         	{
@@ -132,7 +134,7 @@ class bankstart
         });       
 	
 
-    b5.addActionListener( new ActionListener()
+    	b5.addActionListener( new ActionListener()
         {
         	public void actionPerformed(ActionEvent e)
         	{
@@ -145,7 +147,7 @@ class bankstart
         	}
         
         });       
-	return 0;
+		return 0;
 	}
 
  static void adminlogin() 
@@ -245,6 +247,7 @@ class bankstart
  	}
 
 
+
   static void adminpage()
  	{
  		firstwindow.setVisible(false);
@@ -277,7 +280,7 @@ class bankstart
         b3 = new JButton("Show User Details");
         adminpagewindow.add(b3);
 
-        	//b4 = new JButton("ADMIN LOGOUT");
+        	//b4 = new JButton("change details");
         	//adminpagewindow.add(b4);
         
         JButton closebutton = new JButton("ADMIN LOGOUT");
@@ -290,6 +293,14 @@ class bankstart
         			createnewaccount();
         		}
         	});
+
+        b2.addActionListener(new ActionListener()
+        	{
+        		public void actionPerformed(ActionEvent e)
+        		{
+        			deleteaccount();
+        		}
+        	}); 
 
         b3.addActionListener(new ActionListener()
         	{
@@ -323,93 +334,216 @@ class bankstart
     	newaccwindow.setLocationRelativeTo(null);
     	newaccwindow.setLayout(null);
     	newaccwindow.setResizable(false);
+    	int xaxis = 150;
+
 
     	//final String adminid = "admin" ;
  		//final String adminpass= "password";
  	
-    	JLabel l1 = new JLabel("Create a new USERID");
-    	l1.setBounds(150,50,200,30);
+    	JLabel namelabel = new JLabel("Enter Your Name");
+    	namelabel.setBounds(xaxis,50,200,30);
+    	newaccwindow.add(namelabel);
+
+    	final JTextField namebox = new JTextField("");
+    	namebox.setBounds(xaxis,80,200,30);
+    	newaccwindow.add(namebox);
+
+    	final JLabel l0 = new JLabel("name is must");
+    	l0.setVisible(false);
+    	l0.setBounds(xaxis,110,200,30);
+    	newaccwindow.add(l0);
+
+    	final JLabel l1 = new JLabel("Create a new USERNAME");
+    	l1.setBounds(xaxis,150,200,30);
     	newaccwindow.add(l1);
 
        final JTextField textbox1 = new JTextField(""); 	
     	textbox1.setText("");     		
-    	textbox1.setBounds(150,100,200,30);
+    	textbox1.setBounds(xaxis,180,200,30);
     	newaccwindow.add(textbox1);
 
-    	final JLabel l2 = new JLabel("USERID already exist");
-    	l2.setBounds(150,130,200,30);
+    	final JLabel l2 = new JLabel("USERNAME already exist");
+    	l2.setBounds(xaxis,210,200,30);
     	l2.setVisible(false);
     	newaccwindow.add(l2);
 
-    	JLabel l3 = new JLabel("Create a new Password");
-       		l3.setBounds(150,180,200,30);
+    	final JLabel l3 = new JLabel("Create a new Password");
+       		l3.setBounds(xaxis,230,200,30);
+       		//l3.setVisible(false);
        		newaccwindow.add(l3);
 
        	final JPasswordField textbox2 = new JPasswordField("");	
        		textbox2.setText(""); 
-       		textbox2.setBounds(150,230,200,30);
+       		//textbox2.setVisible(false);
+       		textbox2.setBounds(xaxis,260,200,30);
        		newaccwindow.add(textbox2);
 
-          //final JLabel l4 = new JLabel("wrong password");
-          //l4.setBounds(150,260,200,30);
-          //l4.setVisible(false);
-          //adminloginwindow.add(l4);
+          final JLabel l4 = new JLabel("weak password");
+          l4.setBounds(xaxis,290,200,30);
+          l4.setVisible(false);
+          newaccwindow.add(l4);
 
-       		JButton b1 = new JButton("Create");
-       		b1.setBounds(150,310,200,30);
+       		final JButton b1 = new JButton("OK");
+       		b1.setBounds(xaxis,330,200,30);
        		newaccwindow.add(b1); 
     	
-    		JButton closebutton = new JButton("close");
-       		closebutton.setBounds(150,370,200,30);
+    		JButton closebutton = new JButton("CANCEL");
+       		closebutton.setBounds(xaxis,370,200,30);
        		newaccwindow.add(closebutton);    
 
-       			closebutton.addActionListener(new ActionListener()
-        {
-        	public void actionPerformed(ActionEvent e)
+       		closebutton.addActionListener(new ActionListener()
         	{
+        		public void actionPerformed(ActionEvent e)
+        		{
         		newaccwindow.dispose();
-        	}
-        });
+        		}
+        	});
 
 
-    newaccwindow.setVisible(true);
+    	
+
+    		b1.addActionListener(new ActionListener()
+    			{
+    				public void actionPerformed(ActionEvent e)
+    					{
+    						l0.setVisible(false);
+    						l2.setVisible(false);
+    						l4.setVisible(false);
+    						int temp = 0;
+    						boolean alreadyexist = false ;
+    						String enteredname = namebox.getText();
+    						String enteredid = textbox1.getText();
+    						String enteredpass = textbox2.getText();
+    						
+    						//System.out.println("Entered id length is  :"+enteredid.length());
+    						if(enteredid.length()<=6){l2.setText("Alteast 6 characters "); l2.setVisible(true); temp++;}
+    						if(enteredpass.length()<=4){l4.setVisible(true); temp++;}
+    						if(enteredname.length()<=1){l0.setVisible(true); temp++;}
+
+    						//else if(enteredid.length()>=6)
+    							//{ 
+    								for(int i=1;i<=totaluser;i++)
+    								{
+    								if(enteredid.equals(usernamearray[i]))
+    							 		{	alreadyexist=true;
+    							 			l2.setText("USERNAME already exist");
+    							 			l2.setVisible(true);
+    							 			break;
+    							 		}
+    								}
+    							//}		
 
 
+    						if((alreadyexist==false)&&(enteredid.length()>=6)&&(temp==0))
+    							{	
+    								totaluser += 1 ;
+    								enteredpass = textbox2.getText();
+    								usernamearray[totaluser] = enteredid; 
+    								userpasswordarray[totaluser] = enteredpass;
+    								namearray[totaluser] = "New User";
+    								userbalancearray[totaluser] = 100;
+    								
+    								
+    								newaccwindow.getContentPane().removeAll();
+ 									newaccwindow.repaint();
 
+ 									newaccwindow.add(l2);
+    								l2.setText("Account created succesfully");
+    								l2.setVisible(true);
+    								//newaccwindow.dispose();
+    							}
+    					}
 
+    			});
 
-/*
- 		String tempname;
- 		boolean alreadyexist=false;												
+ 	  newaccwindow.setVisible(true);	
+ 	}
 
- 											Scanner in = new Scanner(System.in);
- 											
- 											System.out.println("Enter a Username for new user");
- 											tempname=in.nextLine();
+ 	static void deleteaccount()
+ 	{
+ 		final JFrame deleteaccountwindow = new JFrame("Delete account");
 
- 											for(int i=1;i<=totaluser;i++)
- 												{
- 													if(tempname.equals(usernamearray[i])) 
- 														{ System.out.println("Username already Exist \n try again with different Username ");
- 														 alreadyexist=true; break;
- 														} 		
- 												}
-
- 											if(alreadyexist==false)
- 												{	totaluser++; 
- 													usernamearray[totaluser]=tempname; 
- 													System.out.println("Create new password : "); 
- 													userpasswordarray[totaluser] = in.nextLine();
- 													userbalancearray[totaluser]=0; 
- 													System.out.println("\n !! New user added !!  \n "); 														
- 												}
-*/
-
-
-
-
-
+ 		deleteaccountwindow.setSize(500,500);
+ 		deleteaccountwindow.getContentPane().setBackground(new Color(255,92,51));
+ 		deleteaccountwindow.setLocationRelativeTo(null);
+ 		deleteaccountwindow.setLayout(null);
+ 		int xaxis = 150;
  		
+
+    	final JLabel l1 = new JLabel("Enter the USERNAME");
+    	l1.setBounds(xaxis,150,200,30);
+    	deleteaccountwindow.add(l1);
+
+        final JTextField textbox1 = new JTextField(""); 	
+    	textbox1.setText("");     		
+    	textbox1.setBounds(xaxis,180,200,30);
+    	deleteaccountwindow.add(textbox1);
+
+    	final JLabel l2 = new JLabel();
+    	l2.setBounds(xaxis,210,200,30);
+    	//l2.setVisible(false);
+    	deleteaccountwindow.add(l2);
+   	
+   		final JButton b1 = new JButton("OK");
+       	b1.setBounds(xaxis,330,200,30);
+       	deleteaccountwindow.add(b1); 
+    	
+    	JButton closebutton = new JButton("CANCEL");
+       	closebutton.setBounds(xaxis,370,200,30);
+       	deleteaccountwindow.add(closebutton);  
+
+       
+       	b1.addActionListener(new ActionListener()
+       		{
+       			public void actionPerformed(ActionEvent e)
+       			{
+       				
+       				int temp,acnumber=0;
+       				boolean exist=false;
+       				String enteredid = textbox1.getText();
+
+       				for(int i=1;i<=totaluser;i++)
+    					{
+    						if(enteredid.equals(usernamearray[i]))
+    							{	
+    								exist=true;
+    							 	acnumber=i;		   							 		
+   							 			break;
+    							}
+    					}		
+    					
+    					if(!exist){l2.setText("username not found");}
+    					else if(exist)
+    						{
+    							l2.setText("account nuumber is "+acnumber);
+
+    							totaluser--;
+    							for(int i = acnumber;i<=totaluser;i++)
+    								{   									
+    									usernamearray[i] = usernamearray[i+1];
+    									namearray[i] = namearray[i+1];
+    									userpasswordarray[i] = userpasswordarray[i+1];
+  										userbalancearray[i] = userbalancearray[i+1];  									
+    								}
+    								System.out.println("account is deleted successfully");
+    						
+    						}
+       			}
+       		});
+
+
+       	closebutton.addActionListener(new ActionListener()
+        	{
+        		public void actionPerformed(ActionEvent e)
+        		{
+        			deleteaccountwindow.dispose();
+        		}
+        	});
+
+
+
+
+ 		deleteaccountwindow.setVisible(true);
  	}
 
  static void showuserdetails()
@@ -429,6 +563,7 @@ class bankstart
 
     	table1 = new JTable(model1);
     	model1.addColumn("Sr.NO.");
+    	model1.addColumn("NAME");
     	model1.addColumn("USERID");
     	model1.addColumn("BALANCE");		//str = String.valueOf(n);
     	model1.addColumn("PASSWORD");
@@ -438,20 +573,20 @@ class bankstart
     	//model1.addRow(new Object[]{temp,"Sachin","34550","pass786"});
 
     	int total = 0;
- 			System.out.println("\nTotal user : "+totaluser);
+ 			//System.out.println("\nTotal user : "+totaluser);
  		for(int i=1;i<=totaluser;i++)
  			{ 
- 				String si = String.valueOf(i);
+ 				String sn = String.valueOf(i);
  				String sbalance = String.valueOf(userbalancearray[i]);
 
- 				System.out.println(usernamearray[i]+" : "+userbalancearray[i]);
+ 				//System.out.println(usernamearray[i]+" : "+userbalancearray[i]);
  															
- 				model1.addRow(new Object[]{si,usernamearray[i],sbalance,userpasswordarray[i]});
+ 				model1.addRow(new Object[]{sn,namearray[i],usernamearray[i],sbalance,userpasswordarray[i]});
 
  				total=total+userbalancearray[i];
  			}
  														
- 		System.out.println("\nTotal money bank have now : " +total); 
+ 		//System.out.println("\nTotal money bank have now : " +total); 
  														 
 
     	table1.setBounds(30,40,200,300);          
@@ -508,7 +643,7 @@ class bankstart
        		closebutton.setBounds(150,370,200,30);
        		loginwindow.add(closebutton);      	
        		
-       		 b1.addActionListener(new ActionListener()
+       		b1.addActionListener(new ActionListener()
        		 {
         		public void actionPerformed(ActionEvent e)
         			{       		
@@ -525,7 +660,8 @@ class bankstart
  							{  	
  								temp++;
  								if(enteredpass.equals(userpasswordarray[i]))			//verification of password is done here
- 									{balancetemp=userbalancearray[i]; 
+ 									{ //balancetemp=userbalancearray[i]; 
+ 									 activeaccno=i;									// active account number is logged person acc number 
  									temp++; 
  									 }
  								break;
@@ -539,13 +675,13 @@ class bankstart
        		 });			
 			 
        		closebutton.addActionListener(new ActionListener()
-        {
-        	public void actionPerformed(ActionEvent e)
-        	{
+       		{
+        		public void actionPerformed(ActionEvent e)
+        		{
         		firstwindow.setVisible(true);
         		loginwindow.dispose();
-        	}
-        });
+        		}
+       		});
 
     }
 
@@ -553,7 +689,8 @@ class bankstart
 
 	static void accountmenu()
     {
-          final JFrame accountmenuwindow = new  JFrame("Hello "+name+", Sir");
+         // final JFrame accountmenuwindow = new  JFrame("Hello "+name+", Sir");
+          final JFrame accountmenuwindow = new  JFrame("Account info "+namearray[activeaccno]);
         	accountmenuwindow.setSize(500,500);
         	accountmenuwindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         	accountmenuwindow.getContentPane().setBackground(new Color(71,209,71));
@@ -562,25 +699,26 @@ class bankstart
          // accountmenuwindow.setLayout(null);
         	JButton b1,b2,b3,b4,b5,b6,updatebutton;
 
-        	JLabel l1;
+        	JLabel l1,namelabel,useridlabel;
 
-          
-          l1 = new JLabel("UserId  : "+name,SwingConstants.CENTER);
+           	namelabel = new JLabel("Name : "+namearray[activeaccno],SwingConstants.CENTER);
+           	accountmenuwindow.add(namelabel);
+          //l1 = new JLabel("UserId  : "+name,SwingConstants.CENTER);
+        	useridlabel = new JLabel("UserId  : "+usernamearray[activeaccno],SwingConstants.CENTER);
+
           //l1.setBounds(150,10,300,20);
-          accountmenuwindow.add(l1);
+          accountmenuwindow.add(useridlabel);
 
-        // final JLabel l2 = new JLabel("Balance : "+balancetemp+"Rs",SwingConstants.CENTER);
-         // l2.setBounds(150,30,300,20);
-         // accountmenuwindow.add(l2);
 
-          	showbalance = new JLabel("Balance : "+balancetemp+"Rs ",SwingConstants.CENTER);
+          	//showbalance = new JLabel("Balance : "+balancetemp+"Rs ",SwingConstants.CENTER);
+          showbalance = new JLabel("Balance : "+userbalancearray[activeaccno]+"Rs ",SwingConstants.CENTER);
           	
           	//showbalance.setText("Balance : "+balancetemp+"Rs");
           	accountmenuwindow.add(showbalance);
 
          
           	b1 = new JButton("Add Balance");
-        //	b1.setBounds(150,50,300,40);
+       	 //	b1.setBounds(150,50,300,40);
         	accountmenuwindow.add(b1);
         	
         	b2 = new JButton("Withdraw Money");
@@ -588,7 +726,7 @@ class bankstart
         	accountmenuwindow.add(b2);
 
         	//b3 = new JButton("Transfer to Other Person Account");
-        //	b3.setBounds(150,150,300,40);
+        	//	b3.setBounds(150,150,300,40);
         	//accountmenuwindow.add(b3);
 
         	b4 = new JButton("LOGOUT");
@@ -626,14 +764,14 @@ class bankstart
        		});
         	
         	accountmenuwindow.setVisible(true);
-        }
+    }
 
     public static void addbalance()
     {  
     	final JFrame addbalancewindow = new JFrame("ADD BALANCE");
 
         addbalancewindow.setSize(500,500);
-        addbalancewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //addbalancewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addbalancewindow.getContentPane().setBackground(new Color(71,209,71));
         addbalancewindow.setLocationRelativeTo(null);
         addbalancewindow.setLayout(new GridLayout(7,1));
@@ -657,12 +795,14 @@ class bankstart
         									l2.setText("Please enter numbers only");
         									l2.setVisible(true);}
 
-        				if(temp>0){ balancetemp+= temp; 
-        							showbalance.setText("Balance : "+balancetemp+"Rs");
-        							l2.setText("Amount is added succesfully close this window");
-        							l2.setVisible(true);
-        							okbutton.setVisible(false); }    				
-        							//addbalancewindow.dispose();
+        				if(temp>0){ 	userbalancearray[activeaccno] += temp;
+        							//balancetemp+= temp; 
+        							//showbalance.setText("Balance : "+balancetemp+"Rs");
+        							showbalance.setText("Balance : "+userbalancearray[activeaccno]+"Rs");
+
+        							    				
+        							addbalancewindow.dispose();
+        						}
     		}
 
     	});
@@ -676,8 +816,8 @@ class bankstart
 
     	});
 
-	addbalancewindow.setVisible(true);
-	 }
+		addbalancewindow.setVisible(true);
+	}
 	
 	
 
@@ -688,7 +828,7 @@ class bankstart
     	final JFrame minusbalancewindow = new JFrame("Withdraw Money");
 
         minusbalancewindow.setSize(500,500);
-        minusbalancewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //minusbalancewindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         minusbalancewindow.getContentPane().setBackground(new Color(255,26,26));
         minusbalancewindow.setLocationRelativeTo(null);
         minusbalancewindow.setLayout(new GridLayout(7,1));
@@ -712,12 +852,11 @@ class bankstart
         									l2.setText("Please enter numbers only");
         									l2.setVisible(true);}
 
-        				if(temp>0){ balancetemp-= temp; 
-        							showbalance.setText("Balance : "+balancetemp+"Rs");
-        							l2.setText("Amount is withdrawn succesfully close this window"); 
-        							l2.setVisible(true);
-        							okbutton.setVisible(false); }    				
-        							//minusbalancewindow.dispose();
+        				if(temp>0){ userbalancearray[activeaccno] -= temp ; 
+	       							showbalance.setText("Balance : "+userbalancearray[activeaccno]+"Rs");	       								
+        							minusbalancewindow.dispose();
+
+    								}
     		}
 
     	});
@@ -731,7 +870,7 @@ class bankstart
 
     	});
 
-	minusbalancewindow.setVisible(true);
+		minusbalancewindow.setVisible(true);
 
     }
  
@@ -739,18 +878,8 @@ class bankstart
 
     public static void logout()       
  	{
- 		int temp=0;
-	 	
- 		for(int i=1;i<=totaluser;i++)
- 		{
- 			if(name.equals(usernamearray[i])) 
- 				{ userbalancearray[i]=balancetemp; 
- 				
- 					break;
- 				} 		
- 		}
-		
-	 	balancetemp=0;
+ 		
+	 	activeaccno=0;
  		System.out.println("\nYou have Successfully Logout");
  	}
 
